@@ -7,7 +7,6 @@ import com.pragma.technologymicroservice.domain.model.Technology;
 import com.pragma.technologymicroservice.domain.spi.ITechnologyPersistencePort;
 import lombok.RequiredArgsConstructor;
 
-import java.util.List;
 
 @RequiredArgsConstructor
 public class TechnologyAdapter implements ITechnologyPersistencePort {
@@ -19,7 +18,7 @@ public class TechnologyAdapter implements ITechnologyPersistencePort {
     if(technologyRepository.findByName(technology.getName()).isPresent()){
       throw new TechnologyAlreadyExistsException();
     }
-    technologyRepository.save(technologyEntityMapper.toEntity(technology));
 
+    technologyRepository.save(technologyEntityMapper.toEntity(technology));
   }
 }

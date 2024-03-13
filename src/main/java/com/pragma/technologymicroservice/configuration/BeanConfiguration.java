@@ -20,9 +20,9 @@ public class BeanConfiguration {
   public ITechnologyPersistencePort technologyPersistencePort(){
     return new TechnologyAdapter(technologyRepository,technologyEntityMapper);
   }
+
   @Bean
   public ITechnologyServicePort technologyServicePort(){
     return new TechnologyUseCase(technologyPersistencePort());
-
   }
 }
