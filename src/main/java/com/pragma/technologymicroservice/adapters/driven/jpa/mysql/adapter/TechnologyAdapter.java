@@ -6,7 +6,6 @@ import com.pragma.technologymicroservice.adapters.driven.jpa.mysql.repository.IT
 import com.pragma.technologymicroservice.domain.model.Technology;
 import com.pragma.technologymicroservice.domain.spi.ITechnologyPersistencePort;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Required;
 
 import java.util.List;
 
@@ -22,15 +21,5 @@ public class TechnologyAdapter implements ITechnologyPersistencePort {
     }
     technologyRepository.save(technologyEntityMapper.toEntity(technology));
 
-  }
-
-  @Override
-  public List<Technology> getAllTechnologies(Integer page, Integer size) {
-    return null;
-  }
-
-  @Override
-  public Technology getTechnology(String name) {
-    return null;
   }
 }
