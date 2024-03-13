@@ -7,7 +7,6 @@ import com.pragma.technologymicroservice.domain.model.Technology;
 import com.pragma.technologymicroservice.domain.spi.ITechnologyPersistencePort;
 import lombok.RequiredArgsConstructor;
 
-import java.util.List;
 
 @RequiredArgsConstructor
 public class TechnologyAdapter implements ITechnologyPersistencePort {
