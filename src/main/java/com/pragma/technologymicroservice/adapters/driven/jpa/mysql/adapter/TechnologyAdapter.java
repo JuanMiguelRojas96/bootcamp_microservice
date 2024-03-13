@@ -19,7 +19,7 @@ public class TechnologyAdapter implements ITechnologyPersistencePort {
     if(technologyRepository.findByName(technology.getName()).isPresent()){
       throw new TechnologyAlreadyExistsException();
     }
-    technologyRepository.save(technologyEntityMapper.toEntity(technology));
 
+    technologyRepository.save(technologyEntityMapper.toEntity(technology));
   }
 }

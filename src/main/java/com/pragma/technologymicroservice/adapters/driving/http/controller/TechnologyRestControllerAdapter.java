@@ -24,10 +24,5 @@ public class TechnologyRestControllerAdapter {
   public ResponseEntity<Void> addTechnology(@RequestBody AddTechnologyRequest request){
     technologyServicePort.saveTechnology(technologyRequestMapper.addRequestToTechnology(request));
     return ResponseEntity.status(HttpStatus.CREATED).build();
-
-
   }
-
-
-
 }
