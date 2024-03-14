@@ -1,11 +1,15 @@
 package com.pragma.technologymicroservice.adapters.driven.jpa.mysql.adapter;
 
+import com.pragma.technologymicroservice.adapters.driven.jpa.mysql.entity.TechnologyEntity;
+import com.pragma.technologymicroservice.adapters.driven.jpa.mysql.exception.NoDataFoundException;
 import com.pragma.technologymicroservice.adapters.driven.jpa.mysql.exception.TechnologyAlreadyExistsException;
 import com.pragma.technologymicroservice.adapters.driven.jpa.mysql.mapper.ITechnologyEntityMapper;
 import com.pragma.technologymicroservice.adapters.driven.jpa.mysql.repository.ITechnologyRepository;
 import com.pragma.technologymicroservice.domain.model.Technology;
 import com.pragma.technologymicroservice.domain.spi.ITechnologyPersistencePort;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.util.StringUtils;
 
 import java.util.List;
@@ -31,6 +35,12 @@ public class TechnologyAdapter implements ITechnologyPersistencePort {
 
   @Override
   public List<Technology> getAllTechnologies(Integer page, Integer size) {
-    return null;
+    Pageable pagination = PageRequest.of(page, size);
+    List<TechnologyEntity> technologies = technologyRepository.findAll(pagination).getContent();
+    if (technologies.isEmpty()) {
+      throw new NoDataFoundException();
+    }
+    return technologyEntityMapper.toModelList(technologies);
+
   }
 }

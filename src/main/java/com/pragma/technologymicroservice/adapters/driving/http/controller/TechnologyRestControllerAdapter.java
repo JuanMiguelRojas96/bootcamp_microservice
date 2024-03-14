@@ -7,6 +7,7 @@ import com.pragma.technologymicroservice.adapters.driving.http.mapper.ITechnolog
 import com.pragma.technologymicroservice.adapters.driving.http.mapper.ITechnologyResponseMapper;
 import com.pragma.technologymicroservice.domain.api.ITechnologyServicePort;
 import lombok.RequiredArgsConstructor;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -32,7 +33,7 @@ public class TechnologyRestControllerAdapter {
   }
 
   @GetMapping("/")
-  public ResponseEntity<List<TechnologyResponse>> getAllTechnologies (@RequestParam Integer page, @RequestParam Integer size ){
+  public ResponseEntity<List<TechnologyResponse>> getAllTechnologies (@RequestParam Integer page, @RequestParam Integer size){
     return ResponseEntity.ok(technologyResponseMapper.toTechnologyResponseList(technologyServicePort.getAllTechnologies(page,size)));
   }
 

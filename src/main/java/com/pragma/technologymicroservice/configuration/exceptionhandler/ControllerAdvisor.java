@@ -1,6 +1,7 @@
 package com.pragma.technologymicroservice.configuration.exceptionhandler;
 
 
+import com.pragma.technologymicroservice.adapters.driven.jpa.mysql.exception.NoDataFoundException;
 import com.pragma.technologymicroservice.adapters.driven.jpa.mysql.exception.TechnologyAlreadyExistsException;
 import com.pragma.technologymicroservice.configuration.Constants;
 import lombok.RequiredArgsConstructor;
@@ -47,5 +48,11 @@ public class ControllerAdvisor {
         String.format(Constants.TECHNOLOGY_ALREADY_EXISTS_EXCEPTION_MESSAGE, exception.getMessage()),
         HttpStatus.BAD_REQUEST.toString(), LocalDateTime.now()));
   }
+  @ExceptionHandler(NoDataFoundException.class)
+  public ResponseEntity<ExceptionResponse> handleNoDataFoundException() {
+    return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ExceptionResponse(
+        Constants.NO_DATA_FOUND_EXCEPTION_MESSAGE, HttpStatus.NOT_FOUND.toString(), LocalDateTime.now()));
+  }
+
 
 }
