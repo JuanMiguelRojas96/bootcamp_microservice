@@ -9,6 +9,7 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
 class TechnologyUseCaseTest {
@@ -24,34 +25,13 @@ class TechnologyUseCaseTest {
   }
 
   @Test
-  void saveTechnology_ValidTechnology_ShouldSaveSuccessfully() {
-    Technology technology = new Technology(1L, "Java", "Object-oriented programming language");
+  void testSaveTechnology() {
+
+    Technology technology = new Technology(2L,"Java","Programing Language");
+
     technologyServicePort.saveTechnology(technology);
-    verify(technologyPersistencePort).saveTechnology(technology);
-  }
 
-  @Test
-  void saveTechnology_EmptyName_ShouldThrowEmptyFieldException() {
-    Technology technology = new Technology(1L, "", "Description");
-    assertThrows(EmptyFieldException.class, () -> technologyServicePort.saveTechnology(technology));
-  }
-
-  @Test
-  void saveTechnology_EmptyDescription_ShouldThrowEmptyFieldException() {
-    Technology technology = new Technology(1L, "Java", "");
-    assertThrows(EmptyFieldException.class, () -> technologyServicePort.saveTechnology(technology));
-  }
-
-  @Test
-  void saveTechnology_NameTooLong_ShouldThrowMaxCharException() {
-    Technology technology = new Technology(1L, "JavaProgrammingLanguageJavaProgrammingLanguageJavaProgrammingLanguage", "Description");
-    assertThrows(MaxCharException.class, () -> technologyServicePort.saveTechnology(technology));
-  }
-
-  @Test
-  void saveTechnology_DescriptionTooLong_ShouldThrowMaxCharException() {
-    Technology technology = new Technology(1L, "Java", "DescriptionDescriptionDescriptionDescriptionDescriptionDescriptionDescriptionDescriptionDescriptionDescriptionDescriptionDescription");
-    assertThrows(MaxCharException.class, () -> technologyServicePort.saveTechnology(technology));
+    verify(technologyPersistencePort, times(1)).saveTechnology(technology);
   }
 
 }

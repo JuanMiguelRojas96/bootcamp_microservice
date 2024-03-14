@@ -1,9 +1,5 @@
 package com.pragma.technologymicroservice.domain.model;
 
-import com.pragma.technologymicroservice.adapters.driving.http.util.DomainConstants;
-
-import static java.util.Objects.requireNonNull;
-
 public class Technology {
   
   private final Long id;
