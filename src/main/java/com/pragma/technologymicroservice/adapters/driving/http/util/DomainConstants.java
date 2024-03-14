@@ -1,4 +1,4 @@
-package com.pragma.technologymicroservice.domain.util;
+package com.pragma.technologymicroservice.adapters.driving.http.util;
 
 public class DomainConstants {
   private DomainConstants() {
@@ -8,6 +8,7 @@ public class DomainConstants {
   public enum Field {
     NAME,
     DESCRIPTION,
+
   }
 
   public static final String FIELD_NAME_NULL_MESSAGE = "Field 'name' cannot be null";
