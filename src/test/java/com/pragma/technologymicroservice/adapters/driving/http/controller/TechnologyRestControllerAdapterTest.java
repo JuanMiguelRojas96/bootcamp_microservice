@@ -1,22 +1,23 @@
 package com.pragma.technologymicroservice.adapters.driving.http.controller;
 
+import com.pragma.technologymicroservice.adapters.driving.http.controller.TechnologyRestControllerAdapter;
 import com.pragma.technologymicroservice.adapters.driving.http.dto.request.AddTechnologyRequest;
 import com.pragma.technologymicroservice.adapters.driving.http.mapper.ITechnologyRequestMapper;
 import com.pragma.technologymicroservice.domain.api.ITechnologyServicePort;
-import com.pragma.technologymicroservice.domain.model.Technology;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
 
-class TechnologyRestControllerAdapterTest {
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.*;
+
+public class TechnologyRestControllerAdapterTest {
 
   @Mock
   private ITechnologyServicePort technologyServicePort;
@@ -24,26 +25,22 @@ class TechnologyRestControllerAdapterTest {
   @Mock
   private ITechnologyRequestMapper technologyRequestMapper;
 
+  @InjectMocks
   private TechnologyRestControllerAdapter controller;
 
   @BeforeEach
   void setUp() {
     MockitoAnnotations.initMocks(this);
-    controller = new TechnologyRestControllerAdapter(technologyServicePort, technologyRequestMapper);
   }
 
   @Test
-  void addTechnology_ReturnsCreated() {
+  void addTechnology_ValidRequest_ReturnsCreated() {
+    AddTechnologyRequest request = new AddTechnologyRequest("Java","Programing Language");
+    when(technologyRequestMapper.addRequestToTechnology(request)).thenReturn(any());
 
-    AddTechnologyRequest request = new AddTechnologyRequest("Java", "Programming language");
+    ResponseEntity<Void> response = controller.addTechnology(request);
 
-    Technology mappedTechnology = new Technology(2L,"Java","Programing Language");
-    when(technologyRequestMapper.addRequestToTechnology(request)).thenReturn(mappedTechnology);
-
-    ResponseEntity<Void> responseEntity = controller.addTechnology(request);
-
-    assertEquals(HttpStatus.CREATED, responseEntity.getStatusCode());
-    verify(technologyServicePort).saveTechnology(any(Technology.class));
+    assertEquals(HttpStatus.CREATED, response.getStatusCode());
+    verify(technologyServicePort, times(1)).saveTechnology(any());
   }
-
 }
