@@ -1,8 +1,6 @@
 package com.pragma.technologymicroservice.domain.api.usecase;
 
 import com.pragma.technologymicroservice.domain.api.ITechnologyServicePort;
-import com.pragma.technologymicroservice.domain.exception.EmptyFieldException;
-import com.pragma.technologymicroservice.domain.exception.MaxCharException;
 import com.pragma.technologymicroservice.domain.model.Technology;
 import com.pragma.technologymicroservice.domain.spi.ITechnologyPersistencePort;
 import org.junit.jupiter.api.BeforeEach;

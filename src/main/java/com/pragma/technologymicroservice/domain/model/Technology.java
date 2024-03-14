@@ -1,6 +1,6 @@
 package com.pragma.technologymicroservice.domain.model;
 
-import com.pragma.technologymicroservice.domain.util.DomainConstants;
+import com.pragma.technologymicroservice.adapters.driving.http.util.DomainConstants;
 
 import static java.util.Objects.requireNonNull;
 
@@ -13,8 +13,8 @@ public class Technology {
 
   public Technology(Long id, String name, String description) {
     this.id = id;
-    this.name = requireNonNull(name, DomainConstants.FIELD_NAME_NULL_MESSAGE);
-    this.description = requireNonNull(description,DomainConstants.FIELD_DESCRIPTION_NULL_MESSAGE);
+    this.name = name;
+    this.description = description;
   }
 
   public Long getId() {
