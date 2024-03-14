@@ -6,6 +6,7 @@ import com.pragma.technologymicroservice.adapters.driven.jpa.mysql.repository.IT
 import com.pragma.technologymicroservice.domain.model.Technology;
 import com.pragma.technologymicroservice.domain.spi.ITechnologyPersistencePort;
 import lombok.RequiredArgsConstructor;
+import org.springframework.util.StringUtils;
 
 
 @RequiredArgsConstructor
@@ -15,10 +16,14 @@ public class TechnologyAdapter implements ITechnologyPersistencePort {
 
   @Override
   public void saveTechnology(Technology technology) {
-    if(technologyRepository.findByName(technology.getName()).isPresent()){
+
+    String normalizedTechName = StringUtils.capitalize(technology.getName().toLowerCase());
+
+    if(technologyRepository.findByName(normalizedTechName).isPresent()){
       throw new TechnologyAlreadyExistsException();
     }
 
+    technology.setName(normalizedTechName);
     technologyRepository.save(technologyEntityMapper.toEntity(technology));
   }
 }
