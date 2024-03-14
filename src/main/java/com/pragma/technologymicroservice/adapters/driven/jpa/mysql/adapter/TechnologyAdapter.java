@@ -8,6 +8,8 @@ import com.pragma.technologymicroservice.domain.spi.ITechnologyPersistencePort;
 import lombok.RequiredArgsConstructor;
 import org.springframework.util.StringUtils;
 
+import java.util.List;
+
 
 @RequiredArgsConstructor
 public class TechnologyAdapter implements ITechnologyPersistencePort {
@@ -25,5 +27,10 @@ public class TechnologyAdapter implements ITechnologyPersistencePort {
 
     technology.setName(normalizedTechName);
     technologyRepository.save(technologyEntityMapper.toEntity(technology));
+  }
+
+  @Override
+  public List<Technology> getAllTechnologies(Integer page, Integer size) {
+    return null;
   }
 }
