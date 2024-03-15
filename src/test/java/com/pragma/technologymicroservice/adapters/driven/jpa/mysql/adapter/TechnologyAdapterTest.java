@@ -79,11 +79,11 @@ class TechnologyAdapterTest {
     List<Technology> actual = technologyAdapter.getAllTechnologies(page, size, ascending);
 
     assertEquals(expected.size(), actual.size());
+
     for (int i = 0; i < expected.size(); i++) {
       Technology expectedTech = expected.get(i);
       Technology actualTech = actual.get(i);
       assertEquals(expectedTech.getName(), actualTech.getName());
-      // Aquí podrías comparar otros atributos relevantes si es necesario
     }
 
     verify(technologyRepository).findAll(pageable);
