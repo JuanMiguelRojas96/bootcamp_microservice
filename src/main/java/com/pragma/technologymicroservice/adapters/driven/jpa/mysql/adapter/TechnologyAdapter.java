@@ -10,6 +10,7 @@ import com.pragma.technologymicroservice.domain.spi.ITechnologyPersistencePort;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.util.StringUtils;
 
 import java.util.List;
@@ -34,13 +35,15 @@ public class TechnologyAdapter implements ITechnologyPersistencePort {
   }
 
   @Override
-  public List<Technology> getAllTechnologies(Integer page, Integer size) {
-    Pageable pagination = PageRequest.of(page, size);
+  public List<Technology> getAllTechnologies(Integer page, Integer size, boolean ascending) {
+    Sort sort = ascending ? Sort.by(Sort.Direction.ASC, "name") : Sort.by(Sort.Direction.DESC, "name");
+    Pageable pagination = PageRequest.of(page, size, sort);
     List<TechnologyEntity> technologies = technologyRepository.findAll(pagination).getContent();
+
     if (technologies.isEmpty()) {
       throw new NoDataFoundException();
     }
-    return technologyEntityMapper.toModelList(technologies);
 
+    return technologyEntityMapper.toModelList(technologies);
   }
 }

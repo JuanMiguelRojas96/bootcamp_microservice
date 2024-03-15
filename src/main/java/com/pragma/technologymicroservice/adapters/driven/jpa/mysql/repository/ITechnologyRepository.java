@@ -12,5 +12,4 @@ public interface ITechnologyRepository extends JpaRepository<TechnologyEntity, L
   Optional<TechnologyEntity> findByName(String name);
 
   Page<TechnologyEntity> findAll(Pageable pageable);
-
 }

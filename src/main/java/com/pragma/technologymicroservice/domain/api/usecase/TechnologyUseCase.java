@@ -21,8 +21,8 @@ public class TechnologyUseCase implements ITechnologyServicePort {
   }
 
   @Override
-  public List<Technology> getAllTechnologies(Integer page, Integer size) {
-    return technologyPersistencePort.getAllTechnologies(page,size);
+  public List<Technology> getAllTechnologies(Integer page, Integer size, boolean ascending) {
+    return technologyPersistencePort.getAllTechnologies(page,size,ascending);
   }
 
 }

@@ -33,8 +33,8 @@ public class TechnologyRestControllerAdapter {
   }
 
   @GetMapping("/")
-  public ResponseEntity<List<TechnologyResponse>> getAllTechnologies (@RequestParam Integer page, @RequestParam Integer size){
-    return ResponseEntity.ok(technologyResponseMapper.toTechnologyResponseList(technologyServicePort.getAllTechnologies(page,size)));
+  public ResponseEntity<List<TechnologyResponse>> getAllTechnologies (@RequestParam Integer page, @RequestParam Integer size, @RequestParam(defaultValue = "true") boolean ascending){
+    return ResponseEntity.ok(technologyResponseMapper.toTechnologyResponseList(technologyServicePort.getAllTechnologies(page,size,ascending)));
   }
 
 

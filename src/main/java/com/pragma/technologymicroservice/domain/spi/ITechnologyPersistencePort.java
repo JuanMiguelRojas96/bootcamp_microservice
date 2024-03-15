@@ -9,6 +9,5 @@ public interface ITechnologyPersistencePort {
 
   void saveTechnology(Technology technology);
 
-
-  List<Technology> getAllTechnologies(Integer page, Integer size);
+  List<Technology> getAllTechnologies(Integer page, Integer size, boolean ascending);
 }
