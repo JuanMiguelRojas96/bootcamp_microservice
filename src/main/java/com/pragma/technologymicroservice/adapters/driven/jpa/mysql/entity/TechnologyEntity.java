@@ -6,6 +6,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "technology")
@@ -21,4 +23,7 @@ public class TechnologyEntity {
   private String name;
   @Column(length = 90)
   private String description;
+
+  @ManyToMany(mappedBy = "technologies")
+  private Set<CapacityEntity> capacities = new HashSet<>();
 }
