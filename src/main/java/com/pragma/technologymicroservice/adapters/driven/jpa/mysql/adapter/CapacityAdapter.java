@@ -25,11 +25,11 @@ public class CapacityAdapter implements ICapacityPersistencePort {
 
     String normalizedCapName = StringUtils.capitalize(capacity.getName().toLowerCase());
 
-/*    if (capacityRepository.findByName(normalizedCapName).isPresent()){
+    if (capacityRepository.findByName(normalizedCapName).isPresent()){
       throw new CapacityAlreadyExistsException();
     }
     capacity.setName(normalizedCapName);
-
+/*
     List<TechnologyEntity> technologies = capacityRepository.findTechnologiesByCapacityId(capacity.getId());
     if(technologies.size() < 3 || technologies.size() > 20) {
       throw new CapacityMaxTechnologiesException();

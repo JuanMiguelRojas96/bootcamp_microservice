@@ -6,8 +6,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.List;
+
 
 
 @Entity
@@ -33,6 +33,5 @@ public class CapacityEntity {
       inverseJoinColumns = @JoinColumn(name = "technology_id", referencedColumnName = "id"),
       uniqueConstraints = @UniqueConstraint(columnNames = {"capacity_id", "technology_id"})
   )
-  private Set<TechnologyEntity> technologies = new HashSet<>();
-
+  private List<TechnologyEntity> technologies;
 }
