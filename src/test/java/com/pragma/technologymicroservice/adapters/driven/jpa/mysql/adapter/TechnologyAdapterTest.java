@@ -15,6 +15,7 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
@@ -43,7 +44,7 @@ class TechnologyAdapterTest {
     Technology technology = new Technology(2L, "Java", "Programming Language");
     TechnologyEntity technologyEntity = new TechnologyEntity();
 
-    when(technologyRepository.findByName(technology.getName())).thenReturn(Optional.empty());
+    when(technologyRepository.findByName(technology.getName())).thenReturn(Optional.of(technologyEntity));
     when(technologyEntityMapper.toEntity(technology)).thenReturn(technologyEntity);
 
     assertDoesNotThrow(() -> technologyAdapter.saveTechnology(technology));

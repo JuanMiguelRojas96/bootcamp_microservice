@@ -11,7 +11,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
-import org.springframework.util.StringUtils;
 
 import java.util.List;
 
@@ -24,7 +23,7 @@ public class TechnologyAdapter implements ITechnologyPersistencePort {
   @Override
   public void saveTechnology(Technology technology) {
 
-    String normalizedTechName = StringUtils.capitalize(technology.getName().toLowerCase());
+    String normalizedTechName = technology.getName().toLowerCase();
 
     if(technologyRepository.findByName(normalizedTechName).isPresent()){
       throw new TechnologyAlreadyExistsException();
