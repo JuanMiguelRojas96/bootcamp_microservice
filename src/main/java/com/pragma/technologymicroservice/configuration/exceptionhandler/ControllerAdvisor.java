@@ -3,7 +3,6 @@ package com.pragma.technologymicroservice.configuration.exceptionhandler;
 
 import com.pragma.technologymicroservice.adapters.driven.jpa.mysql.exception.*;
 import com.pragma.technologymicroservice.configuration.Constants;
-import com.pragma.technologymicroservice.domain.model.Capacity;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,12 +20,21 @@ public class ControllerAdvisor {
   @ExceptionHandler(MethodArgumentNotValidException.class)
   public ResponseEntity<ExceptionResponse> handleValidationExceptions(MethodArgumentNotValidException ex) {
     BindingResult result = ex.getBindingResult();
-    FieldError error = result.getFieldError();
-    String errorField = error.getField();
-    String errorMessage = getErrorMessage(error,errorField);
-    return ResponseEntity.badRequest().body(new ExceptionResponse(
-        errorMessage, HttpStatus.BAD_REQUEST.toString(), LocalDateTime.now()));
+
+    if (result.hasFieldErrors()) {
+      FieldError error = result.getFieldError();
+
+      if (error != null) {
+        String errorField = error.getField();
+        String errorMessage = getErrorMessage(error, errorField);
+
+        return ResponseEntity.badRequest().body(new ExceptionResponse(
+            errorMessage, HttpStatus.BAD_REQUEST.toString(), LocalDateTime.now()));
+      }
+    }
+    return ResponseEntity.badRequest().build();
   }
+
 
   private String getErrorMessage(FieldError error, String errorField) {
     if (error == null) {

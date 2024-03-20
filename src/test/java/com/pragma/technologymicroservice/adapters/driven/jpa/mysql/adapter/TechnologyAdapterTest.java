@@ -44,7 +44,7 @@ class TechnologyAdapterTest {
     Technology technology = new Technology(2L, "Java", "Programming Language");
     TechnologyEntity technologyEntity = new TechnologyEntity();
 
-    when(technologyRepository.findByName(technology.getName())).thenReturn(new ArrayList<>());
+    when(technologyRepository.findByName(technology.getName())).thenReturn(Optional.of(technologyEntity));
     when(technologyEntityMapper.toEntity(technology)).thenReturn(technologyEntity);
 
     assertDoesNotThrow(() -> technologyAdapter.saveTechnology(technology));
@@ -57,7 +57,7 @@ class TechnologyAdapterTest {
     Technology technology = new Technology(2L, "Java", "Programming Language");
     TechnologyEntity technologyEntity = new TechnologyEntity();
 
-    when(technologyRepository.findByName(technology.getName())).thenReturn(List.of(technologyEntity));
+    when(technologyRepository.findByName(technology.getName())).thenReturn(Optional.of(technologyEntity));
 
     assertThrows(TechnologyAlreadyExistsException.class, () -> technologyAdapter.saveTechnology(technology));
   }
