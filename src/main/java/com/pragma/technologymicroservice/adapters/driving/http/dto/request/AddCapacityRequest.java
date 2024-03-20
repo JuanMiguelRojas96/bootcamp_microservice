@@ -25,4 +25,6 @@ public class AddCapacityRequest {
   @Size(min = 3, max = 20, message = DomainConstants.CAPACITY_MAX_TECHNOLOGIES_EXCEPTION_MESSAGE)
   private final List<Technology> technologies;
 
+
+
 }

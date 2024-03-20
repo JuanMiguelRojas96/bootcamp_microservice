@@ -26,7 +26,7 @@ public class TechnologyAdapter implements ITechnologyPersistencePort {
 
     String normalizedTechName = technology.getName().toLowerCase();
 
-    if(technologyRepository.findByName(normalizedTechName).size() > 0){
+    if(technologyRepository.findByName(normalizedTechName).isPresent()){
       throw new TechnologyAlreadyExistsException();
     }
 
