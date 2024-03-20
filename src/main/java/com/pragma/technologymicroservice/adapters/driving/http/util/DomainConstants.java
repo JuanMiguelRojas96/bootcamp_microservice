@@ -15,5 +15,5 @@ public class DomainConstants {
   public static final String FIELD_DESCRIPTION_NULL_MESSAGE = "Field 'description' cannot be null";
   public static final String MAX_CHAR_NAME_MESSAGE = "Field 'name' cannot exceed the maximum number of characters (50)";
   public static final String MAX_CHAR_DESCRIPTION_MESSAGE = "Field 'description' cannot exceed the maximum number of characters (90)";
-
+  public static final String CAPACITY_MAX_TECHNOLOGIES_EXCEPTION_MESSAGE = "A capability must have between 3 and 20 associated technologies";
   }

@@ -36,7 +36,7 @@ public class BeanConfiguration {
 
   @Bean
   public ICapacityPersistencePort capacityPersistencePort(){
-    return new CapacityAdapter(capacityRepository,capacityEntityMapper);
+    return new CapacityAdapter(capacityRepository,capacityEntityMapper,technologyRepository);
   }
 
   @Bean

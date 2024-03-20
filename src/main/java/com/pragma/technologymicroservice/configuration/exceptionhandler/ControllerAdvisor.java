@@ -22,25 +22,30 @@ public class ControllerAdvisor {
   public ResponseEntity<ExceptionResponse> handleValidationExceptions(MethodArgumentNotValidException ex) {
     BindingResult result = ex.getBindingResult();
     FieldError error = result.getFieldError();
-    String errorMessage = getErrorMessage(error);
+    String errorField = error.getField();
+    String errorMessage = getErrorMessage(error,errorField);
     return ResponseEntity.badRequest().body(new ExceptionResponse(
         errorMessage, HttpStatus.BAD_REQUEST.toString(), LocalDateTime.now()));
   }
 
-  private String getErrorMessage(FieldError error) {
+  private String getErrorMessage(FieldError error, String errorField) {
     if (error == null) {
       return "Validation error";
     }
+
     String code = error.getCode();
-    switch (code != null ? code : "") {
-      case "NotBlank":
-        return Constants.EMPTY_FIELD_EXCEPTION_MESSAGE;
-      case "Size":
-        return Constants.MAX_CHAR_EXCEPTION_MESSAGE;
-      default:
-        return error.getDefaultMessage();
+
+    if (code != null && code.equals("NotBlank")) {
+      return Constants.EMPTY_FIELD_EXCEPTION_MESSAGE;
+    } else if (code != null && code.equals("Size") && "technologies".equals(errorField)) {
+      return Constants.CAPACITY_MAX_TECHNOLOGIES_EXCEPTION_MESSAGE;
+    } else if (code != null && code.equals("Size")) {
+      return Constants.MAX_CHAR_EXCEPTION_MESSAGE;
+    } else {
+      return error.getDefaultMessage();
     }
   }
+
 
   @ExceptionHandler(TechnologyAlreadyExistsException.class)
   public ResponseEntity<ExceptionResponse> handleTechnologyAlreadyExistsException(TechnologyAlreadyExistsException exception){
