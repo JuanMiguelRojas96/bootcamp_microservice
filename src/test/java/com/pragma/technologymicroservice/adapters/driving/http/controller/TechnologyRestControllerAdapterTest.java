@@ -33,7 +33,7 @@ import static org.mockito.Mockito.*;
 
    @BeforeEach
    void setUp() {
-     MockitoAnnotations.initMocks(this);
+     MockitoAnnotations.openMocks(this);
    }
 
   @Test

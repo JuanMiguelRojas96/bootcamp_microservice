@@ -22,7 +22,7 @@ class TechnologyUseCaseTest {
 
   @BeforeEach
   void setUp() {
-    MockitoAnnotations.initMocks(this);
+    MockitoAnnotations.openMocks(this);
     technologyServicePort = new TechnologyUseCase(technologyPersistencePort);
   }
 

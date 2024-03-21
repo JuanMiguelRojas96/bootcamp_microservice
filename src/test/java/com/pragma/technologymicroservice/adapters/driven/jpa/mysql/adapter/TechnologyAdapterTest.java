@@ -35,7 +35,7 @@ class TechnologyAdapterTest {
 
   @BeforeEach
   void setUp() {
-    MockitoAnnotations.initMocks(this);
+    MockitoAnnotations.openMocks(this);
     technologyAdapter = new TechnologyAdapter(technologyRepository, technologyEntityMapper);
   }
 
