@@ -31,7 +31,7 @@ public class CapacityRestControllerAdapter {
   }
 
   @GetMapping("/")
-  public ResponseEntity<List<CapacityResponse>> getAllCapacities(@RequestParam Integer page, @RequestParam Integer size){
-    return ResponseEntity.ok(capacityResponseMapper.toCapacityResponseList(capacityServicePort.getAllCapacities(page, size)));
+  public ResponseEntity<List<CapacityResponse>> getAllCapacities(@RequestParam Integer page, @RequestParam Integer size, @RequestParam(defaultValue = "true") boolean orderCapacity, @RequestParam(defaultValue = "true") boolean orderTech){
+    return ResponseEntity.ok(capacityResponseMapper.toCapacityResponseList(capacityServicePort.getAllCapacities(page, size,orderCapacity,orderTech)));
   }
 }

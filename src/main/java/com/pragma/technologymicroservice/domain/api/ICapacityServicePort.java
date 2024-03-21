@@ -8,5 +8,5 @@ public interface ICapacityServicePort {
 
   void saveCapacity(Capacity capacity);
 
-  List<Capacity> getAllCapacities(Integer page, Integer size);
+  List<Capacity> getAllCapacities(Integer page, Integer size, boolean orderCapacity, boolean orderTech);
 }

@@ -15,4 +15,5 @@ public interface ICapacityEntityMapper {
 
   List<Capacity> toModelList(List<CapacityEntity> capacityEntities);
 
+
 }

@@ -13,8 +13,10 @@ import com.pragma.technologymicroservice.domain.spi.ICapacityPersistencePort;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 
@@ -60,14 +62,25 @@ public class CapacityAdapter implements ICapacityPersistencePort {
   }
 
   @Override
-  public List<Capacity> getAllCapacities(Integer page, Integer size) {
-    Pageable pagination = PageRequest.of(page,size);
+  public List<Capacity> getAllCapacities(Integer page, Integer size, boolean orderCapacity, boolean orderTech) {
+
+    Sort sortCapacities = orderCapacity ? Sort.by(Sort.Direction.ASC,"name") : Sort.by(Sort.Direction.DESC,"name");
+
+    Pageable pagination = PageRequest.of(page,size,sortCapacities);
+
+
     List<CapacityEntity> capacities = capacityRepository.findAll(pagination).getContent();
+
+    List<CapacityEntity> capacityEntities = new ArrayList<>(capacities);
+
+
+    capacityEntities.sort(orderTech ? Comparator.comparingInt(e -> e.getTechnologies().size()) : Comparator.comparing(e -> e.getTechnologies().size(), Comparator.<Integer>reverseOrder()));
+
 
     if (capacities.isEmpty()){
       throw new NoDataFoundException();
     }
-    return capacityEntityMapper.toModelList(capacities);
+      return capacityEntityMapper.toModelList(capacityEntities);
   }
 
 }
