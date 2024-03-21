@@ -11,6 +11,8 @@ import com.pragma.technologymicroservice.domain.model.Capacity;
 import com.pragma.technologymicroservice.domain.model.Technology;
 import com.pragma.technologymicroservice.domain.spi.ICapacityPersistencePort;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -55,6 +57,17 @@ public class CapacityAdapter implements ICapacityPersistencePort {
       capacityEntity.setTechnologies(technologyEntities);
       capacityRepository.save(capacityEntity);
     }
+  }
+
+  @Override
+  public List<Capacity> getAllCapacities(Integer page, Integer size) {
+    Pageable pagination = PageRequest.of(page,size);
+    List<CapacityEntity> capacities = capacityRepository.findAll(pagination).getContent();
+
+    if (capacities.isEmpty()){
+      throw new NoDataFoundException();
+    }
+    return capacityEntityMapper.toModelList(capacities);
   }
 
 }
