@@ -45,6 +45,8 @@ public class ControllerAdvisor {
 
     if (code != null && code.equals("NotBlank")) {
       return Constants.EMPTY_FIELD_EXCEPTION_MESSAGE;
+    } else if (code != null && code.equals("NotNull")) {
+      return Constants.EMPTY_FIELD_EXCEPTION_MESSAGE;
     } else if (code != null && code.equals("Size") && "technologies".equals(errorField)) {
       return Constants.CAPACITY_MAX_TECHNOLOGIES_EXCEPTION_MESSAGE;
     } else if (code != null && code.equals("Size")) {

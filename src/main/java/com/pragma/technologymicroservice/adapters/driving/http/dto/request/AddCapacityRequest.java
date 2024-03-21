@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.List;
 
@@ -21,8 +22,8 @@ public class AddCapacityRequest {
   @Size(max = 90 , message = DomainConstants.MAX_CHAR_DESCRIPTION_MESSAGE)
   private final String description;
 
-
-  @Size(min = 3, max = 20, message = DomainConstants.CAPACITY_MAX_TECHNOLOGIES_EXCEPTION_MESSAGE)
+  @NotNull(message = DomainConstants.FIELD_TECHNOLOGIES_NULL_MESSAGE)
+  @Size(min = 3, max = 20, message = DomainConstants.CAPACITY_MIN_OR_MAX_TECHNOLOGIES_EXCEPTION_MESSAGE)
   private final List<Technology> technologies;
 
 
