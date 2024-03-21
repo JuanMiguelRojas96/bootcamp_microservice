@@ -2,7 +2,7 @@ package com.pragma.technologymicroservice.domain.model;
 
 public class Technology {
   
-  private final Long id;
+  private Long id;
   private String name;
   private String description;
 
@@ -15,6 +15,10 @@ public class Technology {
 
   public Long getId() {
     return id;
+  }
+
+  public void setId(Long id) {
+    this.id = id;
   }
 
   public String getName() {
