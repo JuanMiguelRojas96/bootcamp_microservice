@@ -9,5 +9,6 @@ import java.util.List;
 @Mapper(componentModel = "spring")
 public interface ICapacityResponseMapper {
 
+
   List<CapacityResponse> toCapacityResponseList(List<Capacity> capacities);
 }
