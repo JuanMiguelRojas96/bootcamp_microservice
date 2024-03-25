@@ -38,18 +38,14 @@ class TechnologyUseCaseTest {
 
   @Test
   void testGetAllTechnologies() {
-    // Arrange
     List<Technology> expectedTechnologies = new ArrayList<>();
     expectedTechnologies.add(new Technology(2L, "Java","Programing"));
     expectedTechnologies.add(new Technology(3L, "Python","Programing"));
 
-    // Simulate behavior of technologyPersistencePort
     when(technologyPersistencePort.getAllTechnologies(1, 10, true)).thenReturn(expectedTechnologies);
 
-    // Act
     List<Technology> actualTechnologies = technologyServicePort.getAllTechnologies(1, 10, true);
 
-    // Assert
     assertEquals(expectedTechnologies.size(), actualTechnologies.size());
     for (int i = 0; i < expectedTechnologies.size(); i++) {
       assertEquals(expectedTechnologies.get(i).getName(), actualTechnologies.get(i).getName());
