@@ -51,7 +51,6 @@ class AddCapacityRequestTest {
     assertEquals(3, violations.size());
 
     for (ConstraintViolation<AddCapacityRequest> violation : violations) {
-      System.out.println("Mensaje de violación: " + violation.getMessage());
       assertTrue(violation.getMessage().contains(DomainConstants.FIELD_NAME_NULL_MESSAGE) ||
           violation.getMessage().contains(DomainConstants.FIELD_DESCRIPTION_NULL_MESSAGE) || violation.getMessage().contains(DomainConstants.FIELD_TECHNOLOGIES_NULL_MESSAGE));
     }

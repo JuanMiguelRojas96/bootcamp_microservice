@@ -30,21 +30,24 @@ import static org.mockito.Mockito.*;
   @Mock
   private ITechnologyResponseMapper technologyResponseMapper;
 
+  private TechnologyRestControllerAdapter technologyRestControllerAdapter;
+
 
    @BeforeEach
    void setUp() {
      MockitoAnnotations.openMocks(this);
+
+     technologyRestControllerAdapter  = new TechnologyRestControllerAdapter(
+         technologyServicePort, technologyRequestMapper, technologyResponseMapper);
    }
 
   @Test
  void testAddTechnology() {
-    TechnologyRestControllerAdapter controller = new TechnologyRestControllerAdapter(
-        technologyServicePort, technologyRequestMapper, technologyResponseMapper);
 
     AddTechnologyRequest request = new AddTechnologyRequest("Java","Description");
     when(technologyRequestMapper.addRequestToTechnology(request)).thenReturn(any());
 
-    ResponseEntity<Void> response = controller.addTechnology(request);
+    ResponseEntity<Void> response = technologyRestControllerAdapter.addTechnology(request);
 
     assertEquals(HttpStatus.CREATED, response.getStatusCode());
     verify(technologyServicePort, times(1)).saveTechnology(any());
@@ -52,22 +55,16 @@ import static org.mockito.Mockito.*;
 
   @Test
  void testGetAllTechnologies() {
-    TechnologyRestControllerAdapter controller = new TechnologyRestControllerAdapter(
-        technologyServicePort, technologyRequestMapper, technologyResponseMapper);
-
-    int page = 1;
-    int size = 10;
-    boolean ascending = true;
 
     List<TechnologyResponse> mockResponseList = Collections.singletonList(new TechnologyResponse(2L,"Java","Description"));
-    when(technologyServicePort.getAllTechnologies(page, size, ascending)).thenReturn(Collections.emptyList());
+    when(technologyServicePort.getAllTechnologies(1, 10, true)).thenReturn(Collections.emptyList());
     when(technologyResponseMapper.toTechnologyResponseList(Collections.emptyList())).thenReturn(mockResponseList);
 
-    ResponseEntity<List<TechnologyResponse>> responseEntity = controller.getAllTechnologies(page, size, ascending);
+    ResponseEntity<List<TechnologyResponse>> responseEntity = technologyRestControllerAdapter.getAllTechnologies(1, 10, true);
 
     assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
     assertEquals(mockResponseList, responseEntity.getBody());
-    verify(technologyServicePort, times(1)).getAllTechnologies(page, size, ascending);
+    verify(technologyServicePort, times(1)).getAllTechnologies(1, 10, true);
     verify(technologyResponseMapper, times(1)).toTechnologyResponseList(Collections.emptyList());
   }
 }

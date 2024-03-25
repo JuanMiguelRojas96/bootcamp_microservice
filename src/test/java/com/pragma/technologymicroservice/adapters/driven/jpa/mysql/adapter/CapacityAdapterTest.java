@@ -16,6 +16,9 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -111,6 +114,62 @@ class CapacityAdapterTest {
 
     assertThrows(NoDataFoundException.class, () -> capacityAdapter.saveCapacity(capacity));
   }
+
+  @Test
+  void testGetAllCapacities() {
+
+    int page = 0;
+    int size = 10;
+    boolean orderCapacity = true;
+    boolean orderTech = true;
+
+    List<Technology> technologies = new ArrayList<>();
+    technologies.add(new Technology(1L, "Java", "Programing"));
+    technologies.add(new Technology(1L, "Java", "Programing"));
+
+
+    List<CapacityEntity> entities = new ArrayList<>();
+    entities.add(new CapacityEntity(1L, "Capacity 1","description", List.of(new TechnologyEntity())));
+    entities.add(new CapacityEntity(2L, "Capacity 2","description", List.of(new TechnologyEntity(), new TechnologyEntity())));
+
+    Page<CapacityEntity> pageOfEntities = new PageImpl<>(entities);
+    when(capacityRepository.findAll(any(PageRequest.class))).thenReturn(pageOfEntities);
+
+    List<Capacity> expectedCapacities = List.of(
+        new Capacity(1L, "Capacity 1","description", technologies),
+        new Capacity(2L, "Capacity 2","description", technologies)
+    );
+    when(capacityEntityMapper.toModelList(entities)).thenReturn(expectedCapacities);
+
+    List<Capacity> actualCapacities = capacityAdapter.getAllCapacities(page, size, orderCapacity, orderTech);
+
+    assertEquals(expectedCapacities, actualCapacities);
+
+    verify(capacityRepository).findAll(PageRequest.of(page, size));
+    verify(capacityEntityMapper).toModelList(entities);
+  }
+
+  @Test
+  void testGetAllCapacities_NoDataFound() {
+
+    int page = 0;
+    int size = 10;
+    boolean orderCapacity = true;
+    boolean orderTech = true;
+
+    Page<CapacityEntity> emptyPageOfEntities = new PageImpl<>(new ArrayList<>());
+    when(capacityRepository.findAll(any(PageRequest.class))).thenReturn(emptyPageOfEntities);
+
+    when(capacityEntityMapper.toModelList(any())).thenReturn(new ArrayList<>());
+
+    assertThrows(NoDataFoundException.class, () -> capacityAdapter.getAllCapacities(page, size, orderCapacity, orderTech));
+
+    verify(capacityRepository).findAll(PageRequest.of(page, size));
+    verify(capacityEntityMapper, never()).toModelList(any());
+  }
+
+
+
 
 
 }

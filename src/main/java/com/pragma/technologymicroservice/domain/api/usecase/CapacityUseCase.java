@@ -4,6 +4,8 @@ import com.pragma.technologymicroservice.domain.api.ICapacityServicePort;
 import com.pragma.technologymicroservice.domain.model.Capacity;
 import com.pragma.technologymicroservice.domain.spi.ICapacityPersistencePort;
 
+import java.util.List;
+
 public class CapacityUseCase implements ICapacityServicePort {
 
   private ICapacityPersistencePort  capacityPersistencePort;
@@ -16,5 +18,10 @@ public class CapacityUseCase implements ICapacityServicePort {
   public void saveCapacity(Capacity capacity) {
     capacityPersistencePort.saveCapacity(capacity);
 
+  }
+
+  @Override
+  public List<Capacity> getAllCapacities(Integer page, Integer size, boolean orderCapacity, boolean orderTech) {
+    return capacityPersistencePort.getAllCapacities(page,size,orderCapacity,orderTech);
   }
 }

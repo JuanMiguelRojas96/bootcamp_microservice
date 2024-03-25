@@ -40,7 +40,7 @@ class TechnologyAdapterTest {
   }
 
   @Test
-  void saveTechnology_SuccessfulSave() {
+  void saveTechnologySuccessfulSave() {
     Technology technology = new Technology(2L, "Java", "Programming Language");
     TechnologyEntity technologyEntity = new TechnologyEntity();
 
@@ -53,7 +53,7 @@ class TechnologyAdapterTest {
   }
 
   @Test
-  void saveTechnology_AlreadyExists() {
+  void saveTechnologyAlreadyExists() {
     Technology technology = new Technology(2L, "Java", "Programming Language");
     TechnologyEntity technologyEntity = new TechnologyEntity();
 
@@ -63,7 +63,7 @@ class TechnologyAdapterTest {
   }
 
   @Test
-  void getAllTechnologies_Success() {
+  void getAllTechnologiesSuccess() {
     int page = 0;
     int size = 10;
     boolean ascending = true;
@@ -92,7 +92,7 @@ class TechnologyAdapterTest {
   }
 
   @Test
-  void getAllTechnologies_Failure_NoDataFound() {
+  void getAllTechnologiesFailureNoDataFound() {
     int page = 0;
     int size = 10;
     boolean ascending = true;
