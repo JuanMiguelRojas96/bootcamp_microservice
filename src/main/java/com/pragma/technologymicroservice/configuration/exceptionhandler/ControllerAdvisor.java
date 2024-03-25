@@ -48,7 +48,9 @@ public class ControllerAdvisor {
     } else if (code != null && code.equals("NotNull")) {
       return Constants.EMPTY_FIELD_EXCEPTION_MESSAGE;
     } else if (code != null && code.equals("Size") && "technologies".equals(errorField)) {
-      return Constants.CAPACITY_MAX_TECHNOLOGIES_EXCEPTION_MESSAGE;
+      return Constants.CAPACITY_MIN_OR_MAX_TECHNOLOGIES_EXCEPTION_MESSAGE;
+    } else if (code != null && code.equals("Size") && "capacities".equals(errorField)) {
+      return Constants.BOOTCAMP_MIN_OR_MAX_TECHNOLOGIES_EXCEPTION_MESSAGE;
     } else if (code != null && code.equals("Size")) {
       return Constants.MAX_CHAR_EXCEPTION_MESSAGE;
     } else {
@@ -74,7 +76,14 @@ public class ControllerAdvisor {
   @ExceptionHandler(CapacityMaxTechnologiesException.class)
   public ResponseEntity<ExceptionResponse> handleCapacityMaxTechnologiesException(CapacityMaxTechnologiesException exception){
     return ResponseEntity.badRequest().body(new ExceptionResponse(
-        String.format(Constants.CAPACITY_MAX_TECHNOLOGIES_EXCEPTION_MESSAGE, exception.getMessage()),
+        String.format(Constants.CAPACITY_MIN_OR_MAX_TECHNOLOGIES_EXCEPTION_MESSAGE, exception.getMessage()),
+        HttpStatus.BAD_REQUEST.toString(), LocalDateTime.now()));
+  }
+
+  @ExceptionHandler(BootcampMaxCapacitiesException.class)
+  public ResponseEntity<ExceptionResponse> handleBootcampMaxCapacitiesException(BootcampMaxCapacitiesException exception){
+    return ResponseEntity.badRequest().body(new ExceptionResponse(
+        String.format(Constants.BOOTCAMP_MIN_OR_MAX_TECHNOLOGIES_EXCEPTION_MESSAGE, exception.getMessage()),
         HttpStatus.BAD_REQUEST.toString(), LocalDateTime.now()));
   }
 
@@ -82,6 +91,13 @@ public class ControllerAdvisor {
   public ResponseEntity<ExceptionResponse> handleRepeatTechInCapacityException(RepeatTechInCapacityException exception){
     return ResponseEntity.badRequest().body(new ExceptionResponse(
         String.format(Constants.REPEAT_TECH_IN_CAPACITY_EXCEPTION_MESSAGE, exception.getMessage()),
+        HttpStatus.BAD_REQUEST.toString(), LocalDateTime.now()));
+  }
+
+  @ExceptionHandler(RepeatCapInBootcampException.class)
+  public ResponseEntity<ExceptionResponse> handleRepeatCapInBootcampException(RepeatCapInBootcampException exception){
+    return ResponseEntity.badRequest().body(new ExceptionResponse(
+        String.format(Constants.REPEAT_CAP_IN_BOOTCAMP_EXCEPTION_MESSAGE, exception.getMessage()),
         HttpStatus.BAD_REQUEST.toString(), LocalDateTime.now()));
   }
 

@@ -1,20 +1,18 @@
 package com.pragma.technologymicroservice.domain.model;
 
-
 import java.util.List;
 
-public class Capacity {
+public class Bootcamp {
   private Long id;
   private String name;
   private String description;
-  private List<Technology> technologies;
+  private List<Capacity> capacities;
 
-  public Capacity(Long id, String name, String description, List<Technology> technologies) {
+  public Bootcamp(Long id, String name, String description, List<Capacity> capacities) {
     this.id = id;
-    this.name= name;
+    this.name = name;
     this.description = description;
-    this.technologies = technologies;
-
+    this.capacities = capacities;
   }
 
   public Long getId() {
@@ -37,11 +35,11 @@ public class Capacity {
     this.description = description;
   }
 
-  public List<Technology> getTechnologies() {
-    return technologies;
+  public List<Capacity> getCapacities() {
+    return capacities;
   }
 
-  public void setTechnologies(List<Technology> technologies) {
-    this.technologies = technologies;
+  public void setCapacities(List<Capacity> capacities) {
+    this.capacities = capacities;
   }
 }
