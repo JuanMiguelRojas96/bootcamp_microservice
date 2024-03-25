@@ -150,7 +150,7 @@ class CapacityAdapterTest {
   }
 
   @Test
-  void testGetAllCapacities_NoDataFound() {
+  void testGetAllCapacitiesNoDataFound() {
 
     int page = 0;
     int size = 10;
