@@ -66,7 +66,7 @@ public class CapacityAdapter implements ICapacityPersistencePort {
     Pageable pagination = PageRequest.of(page,size);
 
     List<CapacityEntity> capacities = capacityRepository.findAll(pagination).getContent();
- List<CapacityEntity> capacityEntities = new ArrayList<>(capacities);
+    List<CapacityEntity> capacityEntities = new ArrayList<>(capacities);
 
     capacityEntities.sort(orderTech ? Comparator.comparingInt(e -> e.getTechnologies().size()) : Comparator.comparing(e -> e.getTechnologies().size(), Comparator.<Integer>reverseOrder()));
     capacityEntities.sort(orderCapacity ? Comparator.comparing(CapacityEntity::getName) : Comparator.comparing(CapacityEntity::getName, Comparator.reverseOrder()));
