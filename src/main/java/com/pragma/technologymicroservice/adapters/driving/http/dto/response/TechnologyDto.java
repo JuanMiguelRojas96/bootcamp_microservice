@@ -1,5 +1,4 @@
-package com.pragma.technologymicroservice.adapters.driving.http.dto;
-
+package com.pragma.technologymicroservice.adapters.driving.http.dto.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,7 +8,6 @@ import lombok.Setter;
 @Getter
 @Setter
 public class TechnologyDto {
-
   private Long id;
   private String name;
 
