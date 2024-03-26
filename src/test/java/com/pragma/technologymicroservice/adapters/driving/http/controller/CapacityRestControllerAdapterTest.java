@@ -1,6 +1,6 @@
 package com.pragma.technologymicroservice.adapters.driving.http.controller;
 
-import com.pragma.technologymicroservice.adapters.driving.http.dto.TechnologyDto;
+import com.pragma.technologymicroservice.adapters.driving.http.dto.response.TechnologyDto;
 import com.pragma.technologymicroservice.adapters.driving.http.dto.request.AddCapacityRequest;
 import com.pragma.technologymicroservice.adapters.driving.http.dto.response.CapacityResponse;
 import com.pragma.technologymicroservice.adapters.driving.http.mapper.ICapacityRequestMapper;
