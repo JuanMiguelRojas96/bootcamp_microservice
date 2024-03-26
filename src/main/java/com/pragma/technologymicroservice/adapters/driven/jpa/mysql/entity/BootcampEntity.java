@@ -6,16 +6,15 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "capacity")
+@Table(name = "bootcamp")
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
-public class CapacityEntity {
+public class BootcampEntity {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,13 +26,10 @@ public class CapacityEntity {
 
   @ManyToMany(fetch = FetchType.EAGER, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
   @JoinTable(
-      name = "capacity_technology",
-      joinColumns = @JoinColumn(name = "capacity_id", referencedColumnName = "id"),
-      inverseJoinColumns = @JoinColumn(name = "technology_id", referencedColumnName = "id"),
-      uniqueConstraints = @UniqueConstraint(columnNames = {"capacity_id", "technology_id"})
+      name = "bootcamp_capacity",
+      joinColumns = @JoinColumn(name = "bootcamp_id", referencedColumnName = "id"),
+      inverseJoinColumns = @JoinColumn(name = "capacity_id", referencedColumnName = "id"),
+      uniqueConstraints = @UniqueConstraint(columnNames = {"bootcamp_id", "capacity_id"})
   )
-  private List<TechnologyEntity> technologies;
-
-  @ManyToMany(mappedBy = "capacities")
-  private List<BootcampEntity> bootcamps;
+  private List<CapacityEntity> capacities;
 }

@@ -31,7 +31,7 @@ public class CapacityAdapter implements ICapacityPersistencePort {
   @Override
   public void saveCapacity(Capacity capacity) {
 
-    String normalizedCapName = capacity.getName().toLowerCase();
+    String normalizedCapName = capacity.getName().trim().toLowerCase();
     capacity.setName(normalizedCapName);
 
     if (capacity.getTechnologies() != null && !capacity.getTechnologies().isEmpty()) {
