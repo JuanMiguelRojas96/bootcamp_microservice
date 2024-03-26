@@ -60,7 +60,7 @@ class CapacityAdapterTest {
     List<TechnologyEntity> technologyEntities = new ArrayList<>();
     technologyEntities.add(existingTechnologyEntity);
 
-    CapacityEntity capacityEntity = new CapacityEntity(1L,"capacity","Description",technologyEntities);
+    CapacityEntity capacityEntity = new CapacityEntity(1L,"capacity","Description",technologyEntities,null);
 
     when(technologyRepository.findById(1L)).thenReturn(Optional.of(existingTechnologyEntity));
     when(capacityEntityMapper.toEntity(capacity)).thenReturn(capacityEntity);
@@ -102,14 +102,6 @@ class CapacityAdapterTest {
 
     Capacity capacity = new Capacity(1L, "capacity", "Description", technologies);
 
-    TechnologyEntity existingTechnologyEntity = new TechnologyEntity();
-    existingTechnologyEntity.setId(1L);
-    existingTechnologyEntity.setName("Java");
-    existingTechnologyEntity.setDescription("Programming");
-
-    List<TechnologyEntity> technologyEntities = new ArrayList<>();
-    technologyEntities.add(existingTechnologyEntity);
-
     when(technologyRepository.findById(1L)).thenReturn(Optional.empty());
 
     assertThrows(NoDataFoundException.class, () -> capacityAdapter.saveCapacity(capacity));
@@ -129,8 +121,8 @@ class CapacityAdapterTest {
 
 
     List<CapacityEntity> entities = new ArrayList<>();
-    entities.add(new CapacityEntity(1L, "Capacity 1","description", List.of(new TechnologyEntity())));
-    entities.add(new CapacityEntity(2L, "Capacity 2","description", List.of(new TechnologyEntity(), new TechnologyEntity())));
+    entities.add(new CapacityEntity(1L, "Capacity 1","description", List.of(new TechnologyEntity()),null));
+    entities.add(new CapacityEntity(2L, "Capacity 2","description", List.of(new TechnologyEntity(), new TechnologyEntity()),null));
 
     Page<CapacityEntity> pageOfEntities = new PageImpl<>(entities);
     when(capacityRepository.findAll(any(PageRequest.class))).thenReturn(pageOfEntities);
