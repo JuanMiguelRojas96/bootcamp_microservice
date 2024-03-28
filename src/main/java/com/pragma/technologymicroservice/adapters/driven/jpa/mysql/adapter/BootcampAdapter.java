@@ -2,8 +2,7 @@ package com.pragma.technologymicroservice.adapters.driven.jpa.mysql.adapter;
 
 import com.pragma.technologymicroservice.adapters.driven.jpa.mysql.entity.BootcampEntity;
 import com.pragma.technologymicroservice.adapters.driven.jpa.mysql.entity.CapacityEntity;
-import com.pragma.technologymicroservice.adapters.driven.jpa.mysql.exception.NoDataFoundException;
-import com.pragma.technologymicroservice.adapters.driven.jpa.mysql.exception.RepeatCapInBootcampException;
+import com.pragma.technologymicroservice.utils.exception.NoDataFoundException;
 import com.pragma.technologymicroservice.adapters.driven.jpa.mysql.mapper.IBootcampEntityMapper;
 import com.pragma.technologymicroservice.adapters.driven.jpa.mysql.repository.IBootcampRepository;
 import com.pragma.technologymicroservice.adapters.driven.jpa.mysql.repository.ICapacityRepository;
@@ -41,11 +40,6 @@ public class BootcampAdapter implements IBootcampPersistencePort {
         Optional<CapacityEntity> existingCapacity = capacityRepository.findById(capacity.getId());
 
         if (existingCapacity.isPresent()){
-          Long capacityId = existingCapacity.get().getId();
-
-          if (capacityEntities.stream().anyMatch(c -> c.getId().equals(capacityId))) {
-            throw new RepeatCapInBootcampException();
-          }
 
           capacityEntities.add(existingCapacity.get());
 

@@ -1,4 +1,4 @@
-package com.pragma.technologymicroservice.adapters.driving.http.util;
+package com.pragma.technologymicroservice.utils.constants;
 
 public class DomainConstants {
   private DomainConstants() {
