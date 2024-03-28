@@ -1,15 +1,13 @@
 package com.pragma.technologymicroservice.adapters.driving.http.dto.request;
 
-import com.pragma.technologymicroservice.adapters.driving.http.util.DomainConstants;
+import com.pragma.technologymicroservice.utils.constants.DomainConstants;
 import com.pragma.technologymicroservice.domain.model.Technology;
 import org.junit.jupiter.api.Test;
-import org.w3c.dom.stylesheets.LinkStyle;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
-import javax.validation.constraints.Null;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -2,8 +2,8 @@ package com.pragma.technologymicroservice.adapters.driven.jpa.mysql.adapter;
 
 import com.pragma.technologymicroservice.adapters.driven.jpa.mysql.entity.CapacityEntity;
 import com.pragma.technologymicroservice.adapters.driven.jpa.mysql.entity.TechnologyEntity;
-import com.pragma.technologymicroservice.adapters.driven.jpa.mysql.exception.NoDataFoundException;
-import com.pragma.technologymicroservice.adapters.driven.jpa.mysql.exception.RepeatTechInCapacityException;
+import com.pragma.technologymicroservice.utils.exception.NoDataFoundException;
+import com.pragma.technologymicroservice.utils.exception.RepeatTechInCapacityException;
 import com.pragma.technologymicroservice.adapters.driven.jpa.mysql.mapper.ICapacityEntityMapper;
 import com.pragma.technologymicroservice.adapters.driven.jpa.mysql.repository.ICapacityRepository;
 import com.pragma.technologymicroservice.adapters.driven.jpa.mysql.repository.ITechnologyRepository;
@@ -41,12 +41,6 @@ public class CapacityAdapter implements ICapacityPersistencePort {
         Optional<TechnologyEntity> existingTechnology = technologyRepository.findById(technology.getId());
 
         if (existingTechnology.isPresent()) {
-          Long technologyId = existingTechnology.get().getId();
-
-          if (technologyEntities.stream().anyMatch(t -> t.getId().equals(technologyId))) {
-            throw new RepeatTechInCapacityException();
-          }
-
           technologyEntities.add(existingTechnology.get());
 
         } else {

@@ -2,15 +2,13 @@ package com.pragma.technologymicroservice.adapters.driven.jpa.mysql.adapter;
 
 import com.pragma.technologymicroservice.adapters.driven.jpa.mysql.entity.BootcampEntity;
 import com.pragma.technologymicroservice.adapters.driven.jpa.mysql.entity.CapacityEntity;
-import com.pragma.technologymicroservice.adapters.driven.jpa.mysql.entity.TechnologyEntity;
-import com.pragma.technologymicroservice.adapters.driven.jpa.mysql.exception.NoDataFoundException;
-import com.pragma.technologymicroservice.adapters.driven.jpa.mysql.exception.RepeatCapInBootcampException;
+import com.pragma.technologymicroservice.utils.exception.NoDataFoundException;
+import com.pragma.technologymicroservice.utils.exception.RepeatCapInBootcampException;
 import com.pragma.technologymicroservice.adapters.driven.jpa.mysql.mapper.IBootcampEntityMapper;
 import com.pragma.technologymicroservice.adapters.driven.jpa.mysql.repository.IBootcampRepository;
 import com.pragma.technologymicroservice.adapters.driven.jpa.mysql.repository.ICapacityRepository;
 import com.pragma.technologymicroservice.domain.model.Bootcamp;
 import com.pragma.technologymicroservice.domain.model.Capacity;
-import com.pragma.technologymicroservice.domain.model.Technology;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;

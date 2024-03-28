@@ -1,8 +1,8 @@
 package com.pragma.technologymicroservice.adapters.driven.jpa.mysql.adapter;
 
 import com.pragma.technologymicroservice.adapters.driven.jpa.mysql.entity.TechnologyEntity;
-import com.pragma.technologymicroservice.adapters.driven.jpa.mysql.exception.NoDataFoundException;
-import com.pragma.technologymicroservice.adapters.driven.jpa.mysql.exception.TechnologyAlreadyExistsException;
+import com.pragma.technologymicroservice.utils.exception.NoDataFoundException;
+import com.pragma.technologymicroservice.utils.exception.TechnologyAlreadyExistsException;
 import com.pragma.technologymicroservice.adapters.driven.jpa.mysql.mapper.ITechnologyEntityMapper;
 import com.pragma.technologymicroservice.adapters.driven.jpa.mysql.repository.ITechnologyRepository;
 import com.pragma.technologymicroservice.domain.model.Technology;
@@ -15,7 +15,6 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;

@@ -1,8 +1,7 @@
 package com.pragma.technologymicroservice.configuration.exceptionhandler;
 
-
-import com.pragma.technologymicroservice.adapters.driven.jpa.mysql.exception.*;
 import com.pragma.technologymicroservice.configuration.Constants;
+import com.pragma.technologymicroservice.utils.exception.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

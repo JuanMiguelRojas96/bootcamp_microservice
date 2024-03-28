@@ -1,6 +1,6 @@
 package com.pragma.technologymicroservice.adapters.driving.http.dto.request;
 
-import com.pragma.technologymicroservice.adapters.driving.http.util.DomainConstants;
+import com.pragma.technologymicroservice.utils.constants.DomainConstants;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
