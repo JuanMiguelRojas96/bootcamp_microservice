@@ -6,6 +6,7 @@ import com.pragma.technologymicroservice.domain.model.Technology;
 import com.pragma.technologymicroservice.domain.spi.ICapacityPersistencePort;
 import com.pragma.technologymicroservice.utils.exception.RepeatTechInCapacityException;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class CapacityUseCase implements ICapacityServicePort {
@@ -19,13 +20,15 @@ public class CapacityUseCase implements ICapacityServicePort {
   @Override
   public void saveCapacity(Capacity capacity) {
 
-    List<Technology> technologies = capacity.getTechnologies();
+    List<Long> technologies = new ArrayList<>();
 
-    for (Technology technology: technologies){
+    for (Technology technology: capacity.getTechnologies()){
       Long technologyId = technology.getId();
 
-      if (technologies.stream().anyMatch(t -> t.getId().equals(technologyId))){
+      if (technologies.contains(technologyId)){
         throw new RepeatTechInCapacityException();
+      }else {
+        technologies.add(technologyId);
       }
     }
     capacityPersistencePort.saveCapacity(capacity);
