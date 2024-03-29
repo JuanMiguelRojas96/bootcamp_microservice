@@ -2,6 +2,7 @@ package com.pragma.technologymicroservice.adapters.driving.http.controller;
 
 import com.pragma.technologymicroservice.adapters.driving.http.dto.request.AddBootcampRequest;
 import com.pragma.technologymicroservice.adapters.driving.http.mapper.IBootcampRequestMapper;
+import com.pragma.technologymicroservice.adapters.driving.http.mapper.IBootcampResponseMapper;
 import com.pragma.technologymicroservice.domain.api.IBootcampServicePort;
 import com.pragma.technologymicroservice.domain.model.Bootcamp;
 import org.junit.jupiter.api.BeforeEach;
@@ -23,13 +24,15 @@ class BootcampRestControllerAdapterTest {
   private IBootcampServicePort bootcampServicePort;
   @Mock
   private IBootcampRequestMapper bootcampRequestMapper;
+  @Mock
+  private IBootcampResponseMapper bootcampResponseMapper;
 
   private BootcampRestControllerAdapter bootcampRestControllerAdapter;
 
   @BeforeEach
   void setUp(){
     MockitoAnnotations.openMocks(this);
-    bootcampRestControllerAdapter = new BootcampRestControllerAdapter(bootcampServicePort,bootcampRequestMapper);
+    bootcampRestControllerAdapter = new BootcampRestControllerAdapter(bootcampServicePort,bootcampRequestMapper,bootcampResponseMapper);
   }
 
   @Test

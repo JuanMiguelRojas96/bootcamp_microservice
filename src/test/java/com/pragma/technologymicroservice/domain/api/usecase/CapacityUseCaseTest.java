@@ -3,6 +3,7 @@ package com.pragma.technologymicroservice.domain.api.usecase;
 import com.pragma.technologymicroservice.domain.model.Capacity;
 import com.pragma.technologymicroservice.domain.model.Technology;
 import com.pragma.technologymicroservice.domain.spi.ICapacityPersistencePort;
+import com.pragma.technologymicroservice.utils.exception.RepeatTechInCapacityException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
@@ -13,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
 
 
@@ -28,14 +30,20 @@ class CapacityUseCaseTest {
     MockitoAnnotations.openMocks(this);
     capacityUseCase = new CapacityUseCase(capacityPersistencePort);
   }
-  @Test
-  void testSaveCapacity() {
+
+  private Capacity createCapacityWithTechnologies() {
     List<Technology> technologies = new ArrayList<>();
+
     technologies.add(new Technology(1L, "Java", "Programming Language"));
     technologies.add(new Technology(2L, "Spring Boot", "Framework"));
 
+    return new Capacity(1L, "CapacityName", "CapacityDescription", technologies);
+  }
 
-    Capacity capacity = new Capacity(1L, "CapacityName", "CapacityDescription", technologies);
+  @Test
+  void testSaveCapacity() {
+
+    Capacity capacity = createCapacityWithTechnologies();
 
     capacityUseCase.saveCapacity(capacity);
 
@@ -43,12 +51,29 @@ class CapacityUseCaseTest {
   }
 
   @Test
-  void testGetAllCapacities(){
+  void testRepeatTechInCapacityException(){
     List<Technology> technologies = new ArrayList<>();
     technologies.add(new Technology(1L, "Java", "Programming Language"));
-    technologies.add(new Technology(2L, "Spring Boot", "Framework"));
+    technologies.add(new Technology(1L, "Spring Boot", "Framework"));
 
     Capacity capacity = new Capacity(1L, "CapacityName", "CapacityDescription", technologies);
+
+    // Configura la expectativa de que se lanzará RepeatTechInCapacityException al guardar la capacidad
+    doThrow(new RepeatTechInCapacityException()).when(capacityPersistencePort).saveCapacity(capacity);
+
+    // Verifica que al intentar guardar la capacidad se lance RepeatTechInCapacityException
+    assertThrows(RepeatTechInCapacityException.class, () -> {
+      capacityUseCase.saveCapacity(capacity);
+    });
+
+    // Verifica que el método saveCapacity no se haya llamado en el PersistencePort
+    verify(capacityPersistencePort, never()).saveCapacity(capacity);
+  }
+
+  @Test
+  void testGetAllCapacities(){
+
+    Capacity capacity = createCapacityWithTechnologies();
 
     List<Capacity> capacities = new ArrayList<>();
 

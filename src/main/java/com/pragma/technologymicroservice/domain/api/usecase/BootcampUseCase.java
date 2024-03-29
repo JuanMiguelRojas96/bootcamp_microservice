@@ -6,6 +6,7 @@ import com.pragma.technologymicroservice.domain.model.Bootcamp;
 import com.pragma.technologymicroservice.domain.model.Capacity;
 import com.pragma.technologymicroservice.domain.spi.IBootcampPersistencePort;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class BootcampUseCase implements IBootcampServicePort {
@@ -19,13 +20,15 @@ public class BootcampUseCase implements IBootcampServicePort {
   @Override
   public void saveBootcamp(Bootcamp bootcamp) {
 
-    List<Capacity> capacities = bootcamp.getCapacities();
+    List<Long> capacities = new ArrayList<>();
 
-    for (Capacity capacity : capacities){
+    for (Capacity capacity : bootcamp.getCapacities()){
       Long capacityId = capacity.getId();
 
-      if (capacities.stream().anyMatch(c -> c.getId().equals(capacityId))){
+      if (capacities.contains(capacityId)){
         throw new RepeatCapInBootcampException();
+      }else {
+        capacities.add(capacityId);
       }
     }
     bootcampPersistencePort.saveBootcamp(bootcamp);
