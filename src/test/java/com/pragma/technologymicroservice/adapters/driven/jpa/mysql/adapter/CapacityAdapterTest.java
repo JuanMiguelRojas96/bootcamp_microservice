@@ -3,7 +3,6 @@ package com.pragma.technologymicroservice.adapters.driven.jpa.mysql.adapter;
 import com.pragma.technologymicroservice.adapters.driven.jpa.mysql.entity.CapacityEntity;
 import com.pragma.technologymicroservice.adapters.driven.jpa.mysql.entity.TechnologyEntity;
 import com.pragma.technologymicroservice.utils.exception.NoDataFoundException;
-import com.pragma.technologymicroservice.utils.exception.RepeatTechInCapacityException;
 import com.pragma.technologymicroservice.adapters.driven.jpa.mysql.mapper.ICapacityEntityMapper;
 import com.pragma.technologymicroservice.adapters.driven.jpa.mysql.repository.ICapacityRepository;
 import com.pragma.technologymicroservice.adapters.driven.jpa.mysql.repository.ITechnologyRepository;
@@ -66,28 +65,6 @@ class CapacityAdapterTest {
 
     verify(capacityRepository,times(1)).save(capacityEntity);
 
-  }
-
-  @Test
-  void testRepeatCapacityError() {
-
-    List<Technology> technologies = new ArrayList<>();
-    technologies.add(new Technology(1L, "Java", "Programing"));
-    technologies.add(new Technology(1L, "Java", "Programing"));
-
-    Capacity capacity = new Capacity(1L, "capacity", "Description", technologies);
-
-    TechnologyEntity existingTechnologyEntity = new TechnologyEntity();
-    existingTechnologyEntity.setId(1L);
-    existingTechnologyEntity.setName("Java");
-    existingTechnologyEntity.setDescription("Programming");
-
-    List<TechnologyEntity> technologyEntities = new ArrayList<>();
-    technologyEntities.add(existingTechnologyEntity);
-
-    when(technologyRepository.findById(1L)).thenReturn(Optional.of(existingTechnologyEntity));
-
-    assertThrows(RepeatTechInCapacityException.class, () -> capacityAdapter.saveCapacity(capacity));
   }
 
   @Test

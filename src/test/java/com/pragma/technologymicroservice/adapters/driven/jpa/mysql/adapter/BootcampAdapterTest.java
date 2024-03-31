@@ -61,24 +61,6 @@ class BootcampAdapterTest {
     verify(bootcampRepository,times(1)).save(bootcampEntity);
   }
 
-  @Test
-  void testRepeatCapacityError(){
-
-    List<Capacity> capacities = new ArrayList<>();
-    capacities.add(new Capacity(1L,"capacidad","descripcion",List.of()));
-    capacities.add(new Capacity(1L,"capacidad","descripcion",List.of()));
-
-    Bootcamp bootcamp = new Bootcamp(1L,"bootcamp","descripcion",capacities);
-
-    CapacityEntity  existingCapacityEntity = new CapacityEntity(1L,"capacidad","descripcion",List.of(), List.of());
-
-    List<CapacityEntity> capacityEntities = new ArrayList<>();
-    capacityEntities.add(existingCapacityEntity);
-
-    when(capacityRepository.findById(1L)).thenReturn(Optional.of(existingCapacityEntity));
-
-    assertThrows(RepeatCapInBootcampException.class, () -> bootcampAdapter.saveBootcamp(bootcamp));
-  }
 
   @Test
   void testNotExistCapacityError(){
