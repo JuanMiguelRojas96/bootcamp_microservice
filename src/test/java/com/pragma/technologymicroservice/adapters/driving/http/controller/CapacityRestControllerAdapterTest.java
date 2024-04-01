@@ -10,6 +10,7 @@ import com.pragma.technologymicroservice.domain.model.Capacity;
 import com.pragma.technologymicroservice.domain.model.Technology;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.http.HttpStatus;
@@ -32,12 +33,12 @@ class CapacityRestControllerAdapterTest {
   @Mock
   private ICapacityResponseMapper capacityResponseMapper;
 
+  @InjectMocks
   private CapacityRestControllerAdapter capacityRestControllerAdapter;
 
   @BeforeEach
   void setUp(){
     MockitoAnnotations.openMocks(this);
-    capacityRestControllerAdapter = new CapacityRestControllerAdapter(capacityServicePort,capacityRequestMapper,capacityResponseMapper);
   }
 
   @Test

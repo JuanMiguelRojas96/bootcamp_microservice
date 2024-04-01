@@ -1,6 +1,6 @@
 package com.pragma.technologymicroservice.adapters.driving.http.dto.request;
 
-import com.pragma.technologymicroservice.utils.constants.DomainConstants;
+import com.pragma.technologymicroservice.utils.constants.ExceptionConstants;
 import org.junit.jupiter.api.Test;
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
@@ -35,8 +35,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
     assertEquals(2, violations.size());
 
     for (ConstraintViolation<AddTechnologyRequest> violation : violations) {
-      assertTrue(violation.getMessage().contains(DomainConstants.FIELD_NAME_NULL_MESSAGE) ||
-          violation.getMessage().contains(DomainConstants.FIELD_DESCRIPTION_NULL_MESSAGE));
+      assertTrue(violation.getMessage().contains(ExceptionConstants.FIELD_NAME_NULL_MESSAGE) ||
+          violation.getMessage().contains(ExceptionConstants.FIELD_DESCRIPTION_NULL_MESSAGE));
     }
   }
 
@@ -52,8 +52,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
     assertEquals(2, violations.size());
 
     for (ConstraintViolation<AddTechnologyRequest> violation : violations) {
-      assertTrue(violation.getMessage().contains(DomainConstants.MAX_CHAR_NAME_MESSAGE) ||
-          violation.getMessage().contains(DomainConstants.MAX_CHAR_DESCRIPTION_MESSAGE));
+      assertTrue(violation.getMessage().contains(ExceptionConstants.MAX_CHAR_NAME_MESSAGE) ||
+          violation.getMessage().contains(ExceptionConstants.MAX_CHAR_DESCRIPTION_MESSAGE));
     }
   }
 

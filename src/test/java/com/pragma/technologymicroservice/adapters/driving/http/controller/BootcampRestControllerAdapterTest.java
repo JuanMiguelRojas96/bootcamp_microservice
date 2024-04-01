@@ -7,6 +7,7 @@ import com.pragma.technologymicroservice.domain.api.IBootcampServicePort;
 import com.pragma.technologymicroservice.domain.model.Bootcamp;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.http.HttpStatus;
@@ -27,12 +28,12 @@ class BootcampRestControllerAdapterTest {
   @Mock
   private IBootcampResponseMapper bootcampResponseMapper;
 
+  @InjectMocks
   private BootcampRestControllerAdapter bootcampRestControllerAdapter;
 
   @BeforeEach
   void setUp(){
     MockitoAnnotations.openMocks(this);
-    bootcampRestControllerAdapter = new BootcampRestControllerAdapter(bootcampServicePort,bootcampRequestMapper,bootcampResponseMapper);
   }
 
   @Test

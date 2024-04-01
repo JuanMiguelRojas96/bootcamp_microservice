@@ -2,6 +2,7 @@ package com.pragma.technologymicroservice.adapters.driven.jpa.mysql.adapter;
 
 import com.pragma.technologymicroservice.adapters.driven.jpa.mysql.entity.BootcampEntity;
 import com.pragma.technologymicroservice.adapters.driven.jpa.mysql.entity.CapacityEntity;
+import com.pragma.technologymicroservice.utils.exception.BootcampAlreadyExistsException;
 import com.pragma.technologymicroservice.utils.exception.NoDataFoundException;
 import com.pragma.technologymicroservice.utils.exception.RepeatCapInBootcampException;
 import com.pragma.technologymicroservice.adapters.driven.jpa.mysql.mapper.IBootcampEntityMapper;
@@ -11,6 +12,7 @@ import com.pragma.technologymicroservice.domain.model.Bootcamp;
 import com.pragma.technologymicroservice.domain.model.Capacity;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
@@ -30,12 +32,12 @@ class BootcampAdapterTest {
   @Mock
   private ICapacityRepository capacityRepository;
 
+  @InjectMocks
   private BootcampAdapter bootcampAdapter;
 
   @BeforeEach
   void setUp() {
     MockitoAnnotations.openMocks(this);
-    bootcampAdapter = new BootcampAdapter(bootcampRepository,bootcampEntityMapper,capacityRepository);
   }
 
   @Test
@@ -61,6 +63,18 @@ class BootcampAdapterTest {
     verify(bootcampRepository,times(1)).save(bootcampEntity);
   }
 
+
+  @Test
+  void testBootcampAlreadyExists(){
+
+    Bootcamp bootcamp = new Bootcamp(1L,"bootcamp","Description",List.of());
+    BootcampEntity bootcampEntity = new BootcampEntity(1L,"bootcamp","Description",List.of());
+
+    when(bootcampRepository.findByName(bootcamp.getName())).thenReturn(Optional.of(bootcampEntity));
+
+    assertThrows(BootcampAlreadyExistsException.class, () -> bootcampAdapter.saveBootcamp(bootcamp));
+
+  }
 
   @Test
   void testNotExistCapacityError(){

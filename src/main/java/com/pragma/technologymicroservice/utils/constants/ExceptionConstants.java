@@ -1,7 +1,7 @@
 package com.pragma.technologymicroservice.utils.constants;
 
-public class DomainConstants {
-  private DomainConstants() {
+public class ExceptionConstants {
+  private ExceptionConstants() {
     throw new IllegalStateException("Utility class");
   }
 

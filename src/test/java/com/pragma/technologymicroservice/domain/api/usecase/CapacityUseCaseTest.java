@@ -6,6 +6,7 @@ import com.pragma.technologymicroservice.domain.spi.ICapacityPersistencePort;
 import com.pragma.technologymicroservice.utils.exception.RepeatTechInCapacityException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
@@ -23,12 +24,12 @@ class CapacityUseCaseTest {
   @Mock
   private ICapacityPersistencePort capacityPersistencePort;
 
+  @InjectMocks
   private CapacityUseCase capacityUseCase;
 
   @BeforeEach
   void setUp() {
     MockitoAnnotations.openMocks(this);
-    capacityUseCase = new CapacityUseCase(capacityPersistencePort);
   }
 
   private Capacity createCapacityWithTechnologies() {

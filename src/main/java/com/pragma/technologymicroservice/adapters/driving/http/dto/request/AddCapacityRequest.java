@@ -1,6 +1,6 @@
 package com.pragma.technologymicroservice.adapters.driving.http.dto.request;
 
-import com.pragma.technologymicroservice.utils.constants.DomainConstants;
+import com.pragma.technologymicroservice.utils.constants.ExceptionConstants;
 import com.pragma.technologymicroservice.domain.model.Technology;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -14,16 +14,16 @@ import java.util.List;
 @Getter
 public class AddCapacityRequest {
 
-  @NotBlank(message = DomainConstants.FIELD_NAME_NULL_MESSAGE)
-  @Size(max = 50 , message = DomainConstants.MAX_CHAR_NAME_MESSAGE)
+  @NotBlank(message = ExceptionConstants.FIELD_NAME_NULL_MESSAGE)
+  @Size(max = 50 , message = ExceptionConstants.MAX_CHAR_NAME_MESSAGE)
   private final String name;
 
-  @NotBlank(message = DomainConstants.FIELD_DESCRIPTION_NULL_MESSAGE)
-  @Size(max = 90 , message = DomainConstants.MAX_CHAR_DESCRIPTION_MESSAGE)
+  @NotBlank(message = ExceptionConstants.FIELD_DESCRIPTION_NULL_MESSAGE)
+  @Size(max = 90 , message = ExceptionConstants.MAX_CHAR_DESCRIPTION_MESSAGE)
   private final String description;
 
-  @NotNull(message = DomainConstants.FIELD_TECHNOLOGIES_NULL_MESSAGE)
-  @Size(min = 3, max = 20, message = DomainConstants.CAPACITY_MIN_OR_MAX_TECHNOLOGIES_EXCEPTION_MESSAGE)
+  @NotNull(message = ExceptionConstants.FIELD_TECHNOLOGIES_NULL_MESSAGE)
+  @Size(min = 3, max = 20, message = ExceptionConstants.CAPACITY_MIN_OR_MAX_TECHNOLOGIES_EXCEPTION_MESSAGE)
   private final List<Technology> technologies;
 
 
