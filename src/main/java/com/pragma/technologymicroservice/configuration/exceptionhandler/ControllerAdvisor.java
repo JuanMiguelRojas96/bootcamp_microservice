@@ -1,8 +1,7 @@
 package com.pragma.technologymicroservice.configuration.exceptionhandler;
 
-
-import com.pragma.technologymicroservice.adapters.driven.jpa.mysql.exception.*;
 import com.pragma.technologymicroservice.configuration.Constants;
+import com.pragma.technologymicroservice.utils.exception.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -70,6 +69,13 @@ public class ControllerAdvisor {
   public ResponseEntity<ExceptionResponse> handleCapacityAlreadyExistsException(CapacityAlreadyExistsException exception){
     return ResponseEntity.badRequest().body(new ExceptionResponse(
         String.format(Constants.CAPACITY_ALREADY_EXISTS_EXCEPTION_MESSAGE, exception.getMessage()),
+        HttpStatus.BAD_REQUEST.toString(), LocalDateTime.now()));
+  }
+
+  @ExceptionHandler(BootcampAlreadyExistsException.class)
+  public ResponseEntity<ExceptionResponse> handleBootcampAlreadyExistsException(BootcampAlreadyExistsException exception){
+    return ResponseEntity.badRequest().body(new ExceptionResponse(
+        String.format(Constants.BOOTCAMP_ALREADY_EXISTS_EXCEPTION_MESSAGE, exception.getMessage()),
         HttpStatus.BAD_REQUEST.toString(), LocalDateTime.now()));
   }
 

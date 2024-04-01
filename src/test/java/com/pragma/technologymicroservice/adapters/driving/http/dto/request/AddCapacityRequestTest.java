@@ -1,15 +1,13 @@
 package com.pragma.technologymicroservice.adapters.driving.http.dto.request;
 
-import com.pragma.technologymicroservice.adapters.driving.http.util.DomainConstants;
+import com.pragma.technologymicroservice.utils.constants.ExceptionConstants;
 import com.pragma.technologymicroservice.domain.model.Technology;
 import org.junit.jupiter.api.Test;
-import org.w3c.dom.stylesheets.LinkStyle;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
-import javax.validation.constraints.Null;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -51,8 +49,8 @@ class AddCapacityRequestTest {
     assertEquals(3, violations.size());
 
     for (ConstraintViolation<AddCapacityRequest> violation : violations) {
-      assertTrue(violation.getMessage().contains(DomainConstants.FIELD_NAME_NULL_MESSAGE) ||
-          violation.getMessage().contains(DomainConstants.FIELD_DESCRIPTION_NULL_MESSAGE) || violation.getMessage().contains(DomainConstants.FIELD_TECHNOLOGIES_NULL_MESSAGE));
+      assertTrue(violation.getMessage().contains(ExceptionConstants.FIELD_NAME_NULL_MESSAGE) ||
+          violation.getMessage().contains(ExceptionConstants.FIELD_DESCRIPTION_NULL_MESSAGE) || violation.getMessage().contains(ExceptionConstants.FIELD_TECHNOLOGIES_NULL_MESSAGE));
     }
   }
 
@@ -68,8 +66,8 @@ class AddCapacityRequestTest {
     assertEquals(3, violations.size());
 
     for (ConstraintViolation<AddCapacityRequest> violation : violations) {
-      assertTrue(violation.getMessage().contains(DomainConstants.MAX_CHAR_NAME_MESSAGE) ||
-          violation.getMessage().contains(DomainConstants.MAX_CHAR_DESCRIPTION_MESSAGE) || violation.getMessage().contains(DomainConstants.CAPACITY_MIN_OR_MAX_TECHNOLOGIES_EXCEPTION_MESSAGE));
+      assertTrue(violation.getMessage().contains(ExceptionConstants.MAX_CHAR_NAME_MESSAGE) ||
+          violation.getMessage().contains(ExceptionConstants.MAX_CHAR_DESCRIPTION_MESSAGE) || violation.getMessage().contains(ExceptionConstants.CAPACITY_MIN_OR_MAX_TECHNOLOGIES_EXCEPTION_MESSAGE));
     }
   }
   

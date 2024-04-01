@@ -2,13 +2,11 @@ package com.pragma.technologymicroservice.adapters.driven.jpa.mysql.adapter;
 
 import com.pragma.technologymicroservice.adapters.driven.jpa.mysql.entity.CapacityEntity;
 import com.pragma.technologymicroservice.adapters.driven.jpa.mysql.entity.TechnologyEntity;
-import com.pragma.technologymicroservice.adapters.driven.jpa.mysql.exception.NoDataFoundException;
-import com.pragma.technologymicroservice.adapters.driven.jpa.mysql.exception.RepeatTechInCapacityException;
-import com.pragma.technologymicroservice.adapters.driven.jpa.mysql.exception.TechnologyAlreadyExistsException;
+import com.pragma.technologymicroservice.utils.exception.CapacityAlreadyExistsException;
+import com.pragma.technologymicroservice.utils.exception.NoDataFoundException;
 import com.pragma.technologymicroservice.adapters.driven.jpa.mysql.mapper.ICapacityEntityMapper;
 import com.pragma.technologymicroservice.adapters.driven.jpa.mysql.repository.ICapacityRepository;
 import com.pragma.technologymicroservice.adapters.driven.jpa.mysql.repository.ITechnologyRepository;
-import com.pragma.technologymicroservice.domain.api.ICapacityServicePort;
 import com.pragma.technologymicroservice.domain.model.Capacity;
 import com.pragma.technologymicroservice.domain.model.Technology;
 import org.junit.jupiter.api.BeforeEach;
@@ -36,12 +34,12 @@ class CapacityAdapterTest {
   private ITechnologyRepository technologyRepository;
   @Mock
   private ICapacityEntityMapper capacityEntityMapper;
+  @InjectMocks
   private CapacityAdapter capacityAdapter;
 
   @BeforeEach
   void setUp() {
     MockitoAnnotations.openMocks(this);
-    capacityAdapter = new CapacityAdapter(capacityRepository,capacityEntityMapper,technologyRepository);
   }
 
   @Test
@@ -71,26 +69,18 @@ class CapacityAdapterTest {
 
   }
 
+
+
   @Test
-  void testRepeatCapacityError() {
+  void testCapacityAlreadyExists(){
 
-    List<Technology> technologies = new ArrayList<>();
-    technologies.add(new Technology(1L, "Java", "Programing"));
-    technologies.add(new Technology(1L, "Java", "Programing"));
+    Capacity capacity = new Capacity(1L,"capacity","Description",List.of());
+    CapacityEntity capacityEntity = new CapacityEntity(1L,"capacity","Description",List.of(),List.of());
 
-    Capacity capacity = new Capacity(1L, "capacity", "Description", technologies);
+    when(capacityRepository.findByName(capacity.getName())).thenReturn(Optional.of(capacityEntity));
 
-    TechnologyEntity existingTechnologyEntity = new TechnologyEntity();
-    existingTechnologyEntity.setId(1L);
-    existingTechnologyEntity.setName("Java");
-    existingTechnologyEntity.setDescription("Programming");
+    assertThrows(CapacityAlreadyExistsException.class, () -> capacityAdapter.saveCapacity(capacity));
 
-    List<TechnologyEntity> technologyEntities = new ArrayList<>();
-    technologyEntities.add(existingTechnologyEntity);
-
-    when(technologyRepository.findById(1L)).thenReturn(Optional.of(existingTechnologyEntity));
-
-    assertThrows(RepeatTechInCapacityException.class, () -> capacityAdapter.saveCapacity(capacity));
   }
 
   @Test
@@ -98,7 +88,7 @@ class CapacityAdapterTest {
 
     List<Technology> technologies = new ArrayList<>();
     technologies.add(new Technology(1L, "Java", "Programing"));
-    technologies.add(new Technology(1L, "Java", "Programing"));
+    technologies.add(new Technology(2L, "Java", "Programing"));
 
     Capacity capacity = new Capacity(1L, "capacity", "Description", technologies);
 
@@ -117,7 +107,7 @@ class CapacityAdapterTest {
 
     List<Technology> technologies = new ArrayList<>();
     technologies.add(new Technology(1L, "Java", "Programing"));
-    technologies.add(new Technology(1L, "Java", "Programing"));
+    technologies.add(new Technology(2L, "Java", "Programing"));
 
 
     List<CapacityEntity> entities = new ArrayList<>();

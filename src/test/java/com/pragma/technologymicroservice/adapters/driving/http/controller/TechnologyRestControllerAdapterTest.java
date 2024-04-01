@@ -8,6 +8,7 @@ import com.pragma.technologymicroservice.domain.api.ITechnologyServicePort;
 import com.pragma.technologymicroservice.domain.api.usecase.TechnologyUseCase;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.http.HttpStatus;
@@ -30,15 +31,13 @@ import static org.mockito.Mockito.*;
   @Mock
   private ITechnologyResponseMapper technologyResponseMapper;
 
+  @InjectMocks
   private TechnologyRestControllerAdapter technologyRestControllerAdapter;
 
 
    @BeforeEach
    void setUp() {
      MockitoAnnotations.openMocks(this);
-
-     technologyRestControllerAdapter  = new TechnologyRestControllerAdapter(
-         technologyServicePort, technologyRequestMapper, technologyResponseMapper);
    }
 
   @Test

@@ -2,8 +2,8 @@ package com.pragma.technologymicroservice.adapters.driven.jpa.mysql.adapter;
 
 import com.pragma.technologymicroservice.adapters.driven.jpa.mysql.entity.BootcampEntity;
 import com.pragma.technologymicroservice.adapters.driven.jpa.mysql.entity.CapacityEntity;
-import com.pragma.technologymicroservice.adapters.driven.jpa.mysql.exception.NoDataFoundException;
-import com.pragma.technologymicroservice.adapters.driven.jpa.mysql.exception.RepeatCapInBootcampException;
+import com.pragma.technologymicroservice.utils.exception.BootcampAlreadyExistsException;
+import com.pragma.technologymicroservice.utils.exception.NoDataFoundException;
 import com.pragma.technologymicroservice.adapters.driven.jpa.mysql.mapper.IBootcampEntityMapper;
 import com.pragma.technologymicroservice.adapters.driven.jpa.mysql.repository.IBootcampRepository;
 import com.pragma.technologymicroservice.adapters.driven.jpa.mysql.repository.ICapacityRepository;
@@ -11,8 +11,11 @@ import com.pragma.technologymicroservice.domain.model.Bootcamp;
 import com.pragma.technologymicroservice.domain.model.Capacity;
 import com.pragma.technologymicroservice.domain.spi.IBootcampPersistencePort;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 
@@ -30,6 +33,10 @@ public class BootcampAdapter implements IBootcampPersistencePort {
     String normalizedCapName = bootcamp.getName().trim().toLowerCase();
     bootcamp.setName(normalizedCapName);
 
+    if (bootcampRepository.findByName(normalizedCapName).isPresent()){
+      throw new BootcampAlreadyExistsException();
+    }
+
     if (bootcamp.getCapacities() != null && !bootcamp.getCapacities().isEmpty()){
 
       List<CapacityEntity> capacityEntities = new ArrayList<>();
@@ -38,11 +45,6 @@ public class BootcampAdapter implements IBootcampPersistencePort {
         Optional<CapacityEntity> existingCapacity = capacityRepository.findById(capacity.getId());
 
         if (existingCapacity.isPresent()){
-          Long capacityId = existingCapacity.get().getId();
-
-          if (capacityEntities.stream().anyMatch(c -> c.getId().equals(capacityId))) {
-            throw new RepeatCapInBootcampException();
-          }
 
           capacityEntities.add(existingCapacity.get());
 
@@ -55,5 +57,22 @@ public class BootcampAdapter implements IBootcampPersistencePort {
       bootcampEntity.setCapacities(capacityEntities);
       bootcampRepository.save(bootcampEntity);
     }
+  }
+
+  @Override
+  public List<Bootcamp> getAllBootcamps(Integer page, Integer size, boolean orderBootcamp, boolean orderCapacity) {
+
+    Pageable pagination = PageRequest.of(page,size);
+
+    List<BootcampEntity> bootcamps = bootcampRepository.findAll(pagination).getContent();
+    List<BootcampEntity> bootcampEntities = new ArrayList<>(bootcamps);
+
+    bootcampEntities.sort(orderCapacity ? Comparator.comparingInt(e ->e.getCapacities().size()) : Comparator.comparing(e -> e.getCapacities().size(), Comparator.<Integer>reverseOrder()));
+    bootcampEntities.sort(orderBootcamp ? Comparator.comparing(BootcampEntity::getName) : Comparator.comparing(BootcampEntity::getName, Comparator.reverseOrder()));
+
+    if(bootcamps.isEmpty()){
+      throw new NoDataFoundException();
+    }
+    return bootcampEntityMapper.toModelList(bootcampEntities);
   }
 }

@@ -5,6 +5,7 @@ import com.pragma.technologymicroservice.domain.model.Technology;
 import com.pragma.technologymicroservice.domain.spi.ITechnologyPersistencePort;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
@@ -17,13 +18,12 @@ import static org.mockito.Mockito.*;
 class TechnologyUseCaseTest {
   @Mock
   private ITechnologyPersistencePort technologyPersistencePort;
-
-  private ITechnologyServicePort technologyServicePort;
+  @InjectMocks
+  private TechnologyUseCase technologyUseCase;
 
   @BeforeEach
   void setUp() {
     MockitoAnnotations.openMocks(this);
-    technologyServicePort = new TechnologyUseCase(technologyPersistencePort);
   }
 
   @Test
@@ -31,7 +31,7 @@ class TechnologyUseCaseTest {
 
     Technology technology = new Technology(2L,"Java","Programing Language");
 
-    technologyServicePort.saveTechnology(technology);
+    technologyUseCase.saveTechnology(technology);
 
     verify(technologyPersistencePort, times(1)).saveTechnology(technology);
   }
@@ -44,7 +44,7 @@ class TechnologyUseCaseTest {
 
     when(technologyPersistencePort.getAllTechnologies(1, 10, true)).thenReturn(expectedTechnologies);
 
-    List<Technology> actualTechnologies = technologyServicePort.getAllTechnologies(1, 10, true);
+    List<Technology> actualTechnologies = technologyUseCase.getAllTechnologies(1, 10, true);
 
     assertEquals(expectedTechnologies.size(), actualTechnologies.size());
     for (int i = 0; i < expectedTechnologies.size(); i++) {

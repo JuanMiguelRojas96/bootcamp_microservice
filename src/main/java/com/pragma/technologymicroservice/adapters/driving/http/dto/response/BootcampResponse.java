@@ -7,9 +7,10 @@ import java.util.List;
 
 @AllArgsConstructor
 @Getter
-public class CapacityResponse {
+public class BootcampResponse {
   private final Long id;
   private final String name;
   private final String description;
-  private final List<TechnologyDto> technologies;
+  private final List<CapacityDto> capacities;
+
 }

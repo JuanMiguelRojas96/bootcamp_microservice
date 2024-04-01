@@ -1,4 +1,4 @@
-package com.pragma.technologymicroservice.adapters.driven.jpa.mysql.exception;
+package com.pragma.technologymicroservice.utils.exception;
 
 public class NoDataFoundException extends RuntimeException {
   public NoDataFoundException() {
