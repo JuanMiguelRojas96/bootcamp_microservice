@@ -2,6 +2,7 @@ package com.pragma.technologymicroservice.adapters.driven.jpa.mysql.adapter;
 
 import com.pragma.technologymicroservice.adapters.driven.jpa.mysql.entity.BootcampEntity;
 import com.pragma.technologymicroservice.adapters.driven.jpa.mysql.entity.CapacityEntity;
+import com.pragma.technologymicroservice.utils.exception.BootcampAlreadyExistsException;
 import com.pragma.technologymicroservice.utils.exception.NoDataFoundException;
 import com.pragma.technologymicroservice.adapters.driven.jpa.mysql.mapper.IBootcampEntityMapper;
 import com.pragma.technologymicroservice.adapters.driven.jpa.mysql.repository.IBootcampRepository;
@@ -31,6 +32,10 @@ public class BootcampAdapter implements IBootcampPersistencePort {
 
     String normalizedCapName = bootcamp.getName().trim().toLowerCase();
     bootcamp.setName(normalizedCapName);
+
+    if (bootcampRepository.findByName(normalizedCapName).isPresent()){
+      throw new BootcampAlreadyExistsException();
+    }
 
     if (bootcamp.getCapacities() != null && !bootcamp.getCapacities().isEmpty()){
 

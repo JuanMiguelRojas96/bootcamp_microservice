@@ -1,6 +1,6 @@
 package com.pragma.technologymicroservice.adapters.driving.http.dto.request;
 
-import com.pragma.technologymicroservice.utils.constants.DomainConstants;
+import com.pragma.technologymicroservice.utils.constants.ExceptionConstants;
 import com.pragma.technologymicroservice.domain.model.Capacity;
 import org.junit.jupiter.api.Test;
 
@@ -44,8 +44,8 @@ class AddBootcampRequestTest {
     assertEquals(3, violations.size());
 
     for (ConstraintViolation<AddBootcampRequest> violation : violations) {
-      assertTrue(violation.getMessage().contains(DomainConstants.FIELD_NAME_NULL_MESSAGE) ||
-          violation.getMessage().contains(DomainConstants.FIELD_DESCRIPTION_NULL_MESSAGE) || violation.getMessage().contains(DomainConstants.FIELD_CAPACITIES_NULL_MESSAGE));
+      assertTrue(violation.getMessage().contains(ExceptionConstants.FIELD_NAME_NULL_MESSAGE) ||
+          violation.getMessage().contains(ExceptionConstants.FIELD_DESCRIPTION_NULL_MESSAGE) || violation.getMessage().contains(ExceptionConstants.FIELD_CAPACITIES_NULL_MESSAGE));
     }
   }
 
@@ -61,8 +61,8 @@ class AddBootcampRequestTest {
     assertEquals(3,violations.size());
 
     for (ConstraintViolation<AddBootcampRequest> violation : violations) {
-      assertTrue(violation.getMessage().contains(DomainConstants.MAX_CHAR_NAME_MESSAGE) ||
-          violation.getMessage().contains(DomainConstants.MAX_CHAR_DESCRIPTION_MESSAGE) || violation.getMessage().contains(DomainConstants.BOOTCAMP_MIN_OR_MAX_CAPACITIES_EXCEPTION_MESSAGE));
+      assertTrue(violation.getMessage().contains(ExceptionConstants.MAX_CHAR_NAME_MESSAGE) ||
+          violation.getMessage().contains(ExceptionConstants.MAX_CHAR_DESCRIPTION_MESSAGE) || violation.getMessage().contains(ExceptionConstants.BOOTCAMP_MIN_OR_MAX_CAPACITIES_EXCEPTION_MESSAGE));
     }
   }
 

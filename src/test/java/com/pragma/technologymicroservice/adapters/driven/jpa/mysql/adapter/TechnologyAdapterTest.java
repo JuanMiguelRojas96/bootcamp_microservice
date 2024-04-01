@@ -8,6 +8,7 @@ import com.pragma.technologymicroservice.adapters.driven.jpa.mysql.repository.IT
 import com.pragma.technologymicroservice.domain.model.Technology;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.data.domain.Page;
@@ -30,12 +31,12 @@ class TechnologyAdapterTest {
   @Mock
   private ITechnologyEntityMapper technologyEntityMapper;
 
+  @InjectMocks
   private TechnologyAdapter technologyAdapter;
 
   @BeforeEach
   void setUp() {
     MockitoAnnotations.openMocks(this);
-    technologyAdapter = new TechnologyAdapter(technologyRepository, technologyEntityMapper);
   }
 
   @Test
@@ -53,8 +54,8 @@ class TechnologyAdapterTest {
 
   @Test
   void saveTechnologyAlreadyExists() {
-    Technology technology = new Technology(2L, "Java", "Programming Language");
-    TechnologyEntity technologyEntity = new TechnologyEntity();
+    Technology technology = new Technology(2L, "java", "Programming Language");
+    TechnologyEntity technologyEntity = new TechnologyEntity(2L, "java", "Programming Language",List.of());
 
     when(technologyRepository.findByName(technology.getName())).thenReturn(Optional.of(technologyEntity));
 

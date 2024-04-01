@@ -72,6 +72,13 @@ public class ControllerAdvisor {
         HttpStatus.BAD_REQUEST.toString(), LocalDateTime.now()));
   }
 
+  @ExceptionHandler(BootcampAlreadyExistsException.class)
+  public ResponseEntity<ExceptionResponse> handleBootcampAlreadyExistsException(BootcampAlreadyExistsException exception){
+    return ResponseEntity.badRequest().body(new ExceptionResponse(
+        String.format(Constants.BOOTCAMP_ALREADY_EXISTS_EXCEPTION_MESSAGE, exception.getMessage()),
+        HttpStatus.BAD_REQUEST.toString(), LocalDateTime.now()));
+  }
+
   @ExceptionHandler(CapacityMaxTechnologiesException.class)
   public ResponseEntity<ExceptionResponse> handleCapacityMaxTechnologiesException(CapacityMaxTechnologiesException exception){
     return ResponseEntity.badRequest().body(new ExceptionResponse(

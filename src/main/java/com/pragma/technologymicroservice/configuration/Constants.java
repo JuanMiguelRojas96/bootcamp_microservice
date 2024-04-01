@@ -9,6 +9,7 @@ public class Constants {
   public static final String MAX_CHAR_EXCEPTION_MESSAGE = "The Field indicated exceed the maximum number of characters";
   public static final String TECHNOLOGY_ALREADY_EXISTS_EXCEPTION_MESSAGE = "The technology you want to create already exists";
   public static final String CAPACITY_ALREADY_EXISTS_EXCEPTION_MESSAGE = "The capacity you want to create already exists";
+  public static final String BOOTCAMP_ALREADY_EXISTS_EXCEPTION_MESSAGE = "The bootcamp you want to create already exists";
   public static final String CAPACITY_MIN_OR_MAX_TECHNOLOGIES_EXCEPTION_MESSAGE = "A capability must have between 3 and 20 associated technologies";
   public static final String BOOTCAMP_MIN_OR_MAX_TECHNOLOGIES_EXCEPTION_MESSAGE = "A bootcamp must have between 1 and 4 associated capacities";
   public static final String REPEAT_TECH_IN_CAPACITY_EXCEPTION_MESSAGE = "A capability cannot have repeating technologies";

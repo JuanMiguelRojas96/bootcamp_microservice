@@ -1,6 +1,6 @@
 package com.pragma.technologymicroservice.adapters.driving.http.dto.request;
 
-import com.pragma.technologymicroservice.utils.constants.DomainConstants;
+import com.pragma.technologymicroservice.utils.constants.ExceptionConstants;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -12,12 +12,12 @@ import javax.validation.constraints.Size;
 @Getter
 public class AddTechnologyRequest {
 
-  @NotBlank(message = DomainConstants.FIELD_NAME_NULL_MESSAGE)
-  @Size(max = 50, message = DomainConstants.MAX_CHAR_NAME_MESSAGE)
+  @NotBlank(message = ExceptionConstants.FIELD_NAME_NULL_MESSAGE)
+  @Size(max = 50, message = ExceptionConstants.MAX_CHAR_NAME_MESSAGE)
   private final String name;
 
-  @NotBlank(message = DomainConstants.FIELD_DESCRIPTION_NULL_MESSAGE)
-  @Size(max = 90, message = DomainConstants.MAX_CHAR_DESCRIPTION_MESSAGE)
+  @NotBlank(message = ExceptionConstants.FIELD_DESCRIPTION_NULL_MESSAGE)
+  @Size(max = 90, message = ExceptionConstants.MAX_CHAR_DESCRIPTION_MESSAGE)
   private final String description;
 
 }
