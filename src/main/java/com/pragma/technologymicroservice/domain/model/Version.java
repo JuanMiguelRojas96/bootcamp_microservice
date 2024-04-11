@@ -1,19 +1,20 @@
 package com.pragma.technologymicroservice.domain.model;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 public class Version {
 
   private Long id;
-  private Date fecha_Inicio;
-  private Date fecha_Fin;
-  private Long cupos;
+  private LocalDate initialDate;
+  private LocalDate finalDate;
+  private Integer cupos;
   private Bootcamp bootcamp;
 
-  public Version(Long id, Date fecha_Inicio,Date fecha_Fin , Long cupos, Bootcamp bootcamp) {
+  public Version(Long id, LocalDate initialDate,LocalDate finalDate , Integer cupos, Bootcamp bootcamp) {
     this.id = id;
-    this.fecha_Inicio = fecha_Inicio;
-    this.fecha_Fin = fecha_Fin;
+    this.initialDate = initialDate;
+    this.finalDate = finalDate;
     this.cupos = cupos;
     this.bootcamp = bootcamp;
   }
@@ -22,28 +23,27 @@ public class Version {
     return id;
   }
 
-
-  public Date getFecha_Inicio() {
-    return fecha_Inicio;
+  public LocalDate getInitialDate() {
+    return initialDate;
   }
 
-  public void setFecha_Inicio(Date fecha_Inicio) {
-    this.fecha_Inicio = fecha_Inicio;
+  public void setInitialDate(LocalDate initialDate) {
+    this.initialDate = initialDate;
   }
 
-  public Date getFecha_Fin() {
-    return fecha_Fin;
+  public LocalDate getFinalDate() {
+    return finalDate;
   }
 
-  public void setFecha_Fin(Date fecha_Fin) {
-    this.fecha_Fin = fecha_Fin;
+  public void setFinalDate(LocalDate finalDate) {
+    this.finalDate = finalDate;
   }
 
-  public Long getCupos() {
+  public Integer getCupos() {
     return cupos;
   }
 
-  public void setCupos(Long cupos) {
+  public void setCupos(Integer cupos) {
     this.cupos = cupos;
   }
 

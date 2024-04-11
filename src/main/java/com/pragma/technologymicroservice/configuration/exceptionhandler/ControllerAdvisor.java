@@ -57,7 +57,7 @@ public class ControllerAdvisor {
     }
   }
 
-
+  //Already Exists
   @ExceptionHandler(TechnologyAlreadyExistsException.class)
   public ResponseEntity<ExceptionResponse> handleTechnologyAlreadyExistsException(TechnologyAlreadyExistsException exception){
     return ResponseEntity.badRequest().body(new ExceptionResponse(
@@ -79,6 +79,8 @@ public class ControllerAdvisor {
         HttpStatus.BAD_REQUEST.toString(), LocalDateTime.now()));
   }
 
+  //Min or Max
+
   @ExceptionHandler(CapacityMaxTechnologiesException.class)
   public ResponseEntity<ExceptionResponse> handleCapacityMaxTechnologiesException(CapacityMaxTechnologiesException exception){
     return ResponseEntity.badRequest().body(new ExceptionResponse(
@@ -93,6 +95,8 @@ public class ControllerAdvisor {
         HttpStatus.BAD_REQUEST.toString(), LocalDateTime.now()));
   }
 
+  //Repeat
+
   @ExceptionHandler(RepeatTechInCapacityException.class)
   public ResponseEntity<ExceptionResponse> handleRepeatTechInCapacityException(RepeatTechInCapacityException exception){
     return ResponseEntity.badRequest().body(new ExceptionResponse(
@@ -106,6 +110,24 @@ public class ControllerAdvisor {
         String.format(Constants.REPEAT_CAP_IN_BOOTCAMP_EXCEPTION_MESSAGE, exception.getMessage()),
         HttpStatus.BAD_REQUEST.toString(), LocalDateTime.now()));
   }
+
+  //Date
+
+  @ExceptionHandler(InitialDateBeforeCurrentDateException.class)
+  public ResponseEntity<ExceptionResponse> handleInitialDateBeforeCurrentDateException(InitialDateBeforeCurrentDateException exception){
+    return ResponseEntity.badRequest().body(new ExceptionResponse(
+        String.format(Constants.INITIAL_DATE_MUST_BE_GREATER_THAN_ACTUAL, exception.getMessage()),
+        HttpStatus.BAD_REQUEST.toString(), LocalDateTime.now()));
+  }
+
+  @ExceptionHandler(FinalDateBeforeInitialDateException.class)
+  public ResponseEntity<ExceptionResponse> handleFinalDateBeforeInitialDateException(FinalDateBeforeInitialDateException exception){
+    return ResponseEntity.badRequest().body(new ExceptionResponse(
+        String.format(Constants.FINAL_DATE_MUST_BE_GREATER_THAN_INITIAL_DATE, exception.getMessage()),
+        HttpStatus.BAD_REQUEST.toString(), LocalDateTime.now()));
+  }
+
+  //No Data Found
 
   @ExceptionHandler(NoDataFoundException.class)
   public ResponseEntity<ExceptionResponse> handleNoDataFoundException() {
