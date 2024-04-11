@@ -3,21 +3,27 @@ package com.pragma.technologymicroservice.configuration;
 import com.pragma.technologymicroservice.adapters.driven.jpa.mysql.adapter.BootcampAdapter;
 import com.pragma.technologymicroservice.adapters.driven.jpa.mysql.adapter.CapacityAdapter;
 import com.pragma.technologymicroservice.adapters.driven.jpa.mysql.adapter.TechnologyAdapter;
+import com.pragma.technologymicroservice.adapters.driven.jpa.mysql.adapter.VersionAdapter;
 import com.pragma.technologymicroservice.adapters.driven.jpa.mysql.mapper.IBootcampEntityMapper;
 import com.pragma.technologymicroservice.adapters.driven.jpa.mysql.mapper.ICapacityEntityMapper;
 import com.pragma.technologymicroservice.adapters.driven.jpa.mysql.mapper.ITechnologyEntityMapper;
+import com.pragma.technologymicroservice.adapters.driven.jpa.mysql.mapper.IVersionEntityMapper;
 import com.pragma.technologymicroservice.adapters.driven.jpa.mysql.repository.IBootcampRepository;
 import com.pragma.technologymicroservice.adapters.driven.jpa.mysql.repository.ICapacityRepository;
 import com.pragma.technologymicroservice.adapters.driven.jpa.mysql.repository.ITechnologyRepository;
+import com.pragma.technologymicroservice.adapters.driven.jpa.mysql.repository.IVersionRepository;
 import com.pragma.technologymicroservice.domain.api.IBootcampServicePort;
 import com.pragma.technologymicroservice.domain.api.ICapacityServicePort;
 import com.pragma.technologymicroservice.domain.api.ITechnologyServicePort;
+import com.pragma.technologymicroservice.domain.api.IVersionServicePort;
 import com.pragma.technologymicroservice.domain.api.usecase.BootcampUseCase;
 import com.pragma.technologymicroservice.domain.api.usecase.CapacityUseCase;
 import com.pragma.technologymicroservice.domain.api.usecase.TechnologyUseCase;
+import com.pragma.technologymicroservice.domain.api.usecase.VersionUseCase;
 import com.pragma.technologymicroservice.domain.spi.IBootcampPersistencePort;
 import com.pragma.technologymicroservice.domain.spi.ICapacityPersistencePort;
 import com.pragma.technologymicroservice.domain.spi.ITechnologyPersistencePort;
+import com.pragma.technologymicroservice.domain.spi.IVersionPersistencePort;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -31,6 +37,8 @@ public class BeanConfiguration {
   private final ICapacityEntityMapper capacityEntityMapper;
   private final IBootcampRepository bootcampRepository;
   private final IBootcampEntityMapper bootcampEntityMapper;
+  private final IVersionRepository versionRepository;
+  private final IVersionEntityMapper versionEntityMapper;
 
   @Bean
   public ITechnologyPersistencePort technologyPersistencePort(){
@@ -59,4 +67,15 @@ public class BeanConfiguration {
   public IBootcampServicePort bootcampServicePort(){
     return new BootcampUseCase(bootcampPersistencePort());
   }
+
+  @Bean
+  public IVersionPersistencePort versionPersistencePort(){
+    return new VersionAdapter(versionRepository,versionEntityMapper);
+  }
+
+  @Bean
+  public IVersionServicePort versionServicePort(){
+    return new VersionUseCase(versionPersistencePort());
+  }
+
 }

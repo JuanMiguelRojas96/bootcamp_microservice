@@ -32,4 +32,5 @@ public class BootcampEntity {
       uniqueConstraints = @UniqueConstraint(columnNames = {"bootcamp_id", "capacity_id"})
   )
   private List<CapacityEntity> capacities;
+
 }
