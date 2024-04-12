@@ -5,10 +5,8 @@ import com.pragma.technologymicroservice.utils.constants.ExceptionConstants;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
-import java.util.Date;
 
 @AllArgsConstructor
 @Getter

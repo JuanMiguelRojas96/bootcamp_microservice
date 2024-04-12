@@ -38,24 +38,22 @@ public class CapacityAdapter implements ICapacityPersistencePort {
       throw new CapacityAlreadyExistsException();
     }
 
-    if (capacity.getTechnologies() != null && !capacity.getTechnologies().isEmpty()) {
-      List<TechnologyEntity> technologyEntities = new ArrayList<>();
+    List<TechnologyEntity> technologyEntities = new ArrayList<>();
 
-      for (Technology technology : capacity.getTechnologies()) {
-        Optional<TechnologyEntity> existingTechnology = technologyRepository.findById(technology.getId());
+    for (Technology technology : capacity.getTechnologies()) {
+      Optional<TechnologyEntity> existingTechnology = technologyRepository.findById(technology.getId());
 
-        if (existingTechnology.isPresent()) {
-          technologyEntities.add(existingTechnology.get());
+      if (existingTechnology.isPresent()) {
+        technologyEntities.add(existingTechnology.get());
 
-        } else {
-          throw new NoDataFoundException();
-        }
+      } else {
+        throw new NoDataFoundException();
       }
-
-      CapacityEntity capacityEntity = capacityEntityMapper.toEntity(capacity);
-      capacityEntity.setTechnologies(technologyEntities);
-      capacityRepository.save(capacityEntity);
     }
+
+    CapacityEntity capacityEntity = capacityEntityMapper.toEntity(capacity);
+    capacityEntity.setTechnologies(technologyEntities);
+    capacityRepository.save(capacityEntity);
   }
 
   @Override
