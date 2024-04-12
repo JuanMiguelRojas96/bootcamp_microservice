@@ -7,7 +7,6 @@ import com.pragma.technologymicroservice.utils.exception.FinalDateBeforeInitialD
 import com.pragma.technologymicroservice.utils.exception.InitialDateBeforeCurrentDateException;
 
 import java.time.LocalDate;
-import java.util.Date;
 
 public class VersionUseCase implements IVersionServicePort {
 
@@ -26,16 +25,12 @@ public class VersionUseCase implements IVersionServicePort {
     LocalDate fechaInicio = version.getInitialDate();
     LocalDate fechaFin = version.getFinalDate();
 
-    System.out.println(fechaActual);
-    System.out.println(fechaInicio);
-
     if (fechaInicio.isBefore(fechaActual)) {
       throw new InitialDateBeforeCurrentDateException();
     }
     if (fechaFin.isBefore(fechaInicio)) {
       throw new FinalDateBeforeInitialDateException();
     }
-
 
     versionPersistencePort.saveVersion(version);
   }
