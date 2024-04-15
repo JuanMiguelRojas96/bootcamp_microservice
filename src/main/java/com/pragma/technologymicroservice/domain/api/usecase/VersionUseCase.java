@@ -7,6 +7,7 @@ import com.pragma.technologymicroservice.utils.exception.FinalDateBeforeInitialD
 import com.pragma.technologymicroservice.utils.exception.InitialDateBeforeCurrentDateException;
 
 import java.time.LocalDate;
+import java.util.List;
 
 public class VersionUseCase implements IVersionServicePort {
 
@@ -33,6 +34,12 @@ public class VersionUseCase implements IVersionServicePort {
     }
 
     versionPersistencePort.saveVersion(version);
+  }
+
+  @Override
+  public List<Version> getAllVersions(Integer page, Integer size, String orderBootcamp,
+                                      String orderDate, String orderCupos, Long bootcampId) {
+    return versionPersistencePort.getAllVersions(page,size,orderBootcamp,orderDate,orderCupos,bootcampId);
   }
 
 }
