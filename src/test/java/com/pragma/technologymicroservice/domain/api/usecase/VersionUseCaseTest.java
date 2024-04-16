@@ -13,7 +13,9 @@ import org.mockito.MockitoAnnotations;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
 
@@ -69,6 +71,22 @@ class VersionUseCaseTest {
 
     assertThrows(FinalDateBeforeInitialDateException.class, () -> versionUseCase.saveVersion(version));
     verify(versionPersistencePort, never()).saveVersion(version);
+  }
+
+  @Test
+  void testGetAllVersions() {
+
+    Version version = createVersion();
+    List<Version> versions = new ArrayList<>();
+    versions.add(version);
+
+    when(versionPersistencePort.getAllVersions(1,10,null,null,null,null)).thenReturn(versions);
+
+    List<Version> actualVersions = versionPersistencePort.getAllVersions(1,10,null,null,null,null);
+
+    assertEquals(versions,actualVersions);
+    verify(versionPersistencePort,times(1)).getAllVersions(1,10,null,null,null,null);
+
   }
 
 }
