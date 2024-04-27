@@ -6,6 +6,8 @@ import com.pragma.technologymicroservice.adapters.driving.http.dto.response.Tech
 import com.pragma.technologymicroservice.adapters.driving.http.mapper.ITechnologyRequestMapper;
 import com.pragma.technologymicroservice.adapters.driving.http.mapper.ITechnologyResponseMapper;
 import com.pragma.technologymicroservice.domain.api.ITechnologyServicePort;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.http.HttpStatus;
@@ -20,6 +22,7 @@ import java.util.List;
 @RequestMapping("/technology")
 @RequiredArgsConstructor
 @Validated
+@Tag(name = "Tecnología", description = "Endpoints para manejar tecnologías")
 public class TechnologyRestControllerAdapter {
   private final ITechnologyServicePort technologyServicePort;
   private final ITechnologyRequestMapper technologyRequestMapper;
@@ -27,12 +30,15 @@ public class TechnologyRestControllerAdapter {
 
 
   @PostMapping("/")
+  @Operation(summary = "Endpoint to add a new technology")
+
   public ResponseEntity<Void> addTechnology(@Valid @RequestBody AddTechnologyRequest request){
     technologyServicePort.saveTechnology(technologyRequestMapper.addRequestToTechnology(request));
     return ResponseEntity.status(HttpStatus.CREATED).build();
   }
 
   @GetMapping("/")
+  @Operation(summary = "Endpoint to get all technologies")
   public ResponseEntity<List<TechnologyResponse>> getAllTechnologies (@RequestParam Integer page, @RequestParam Integer size, @RequestParam(defaultValue = "true") boolean ascending){
     return ResponseEntity.ok(technologyResponseMapper.toTechnologyResponseList(technologyServicePort.getAllTechnologies(page,size,ascending)));
   }
