@@ -7,6 +7,8 @@ import com.pragma.technologymicroservice.adapters.driving.http.mapper.ITechnolog
 import com.pragma.technologymicroservice.adapters.driving.http.mapper.ITechnologyResponseMapper;
 import com.pragma.technologymicroservice.configuration.security.jwt.JwtUtils;
 import com.pragma.technologymicroservice.domain.api.ITechnologyServicePort;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +25,7 @@ import java.util.List;
 @RequestMapping("/technology")
 @RequiredArgsConstructor
 @Validated
+@Tag(name = "Tecnología", description = "Endpoints para manejar tecnologías")
 @PreAuthorize("permitAll()")
 @CrossOrigin(origins = "http://localhost:4200/")
 public class TechnologyRestControllerAdapter {
@@ -36,6 +39,7 @@ public class TechnologyRestControllerAdapter {
 
 
   @PostMapping("/")
+  @Operation(summary = "Endpoint to add a new technology")
   @PreAuthorize("hasAuthority('ROLE_ADMIN')")
   public ResponseEntity<Void> addTechnology(@Valid @RequestBody AddTechnologyRequest request){
     technologyServicePort.saveTechnology(technologyRequestMapper.addRequestToTechnology(request));
@@ -43,6 +47,7 @@ public class TechnologyRestControllerAdapter {
   }
 
   @GetMapping("/")
+  @Operation(summary = "Endpoint to get all technologies")
   @PreAuthorize("hasAuthority('ROLE_ADMIN')")
   public ResponseEntity<List<TechnologyResponse>> getAllTechnologies (@RequestParam Integer page,
                                                                       @RequestParam Integer size,
